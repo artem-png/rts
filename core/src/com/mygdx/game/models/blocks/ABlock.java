@@ -11,6 +11,7 @@ public abstract class ABlock implements IBlock {
     public Sprite texture;
     public Vector2 position;
     public float hp;
+    public boolean hasPass = false;
 
     public Sprite getTexture() {
         return texture;
@@ -38,5 +39,9 @@ public abstract class ABlock implements IBlock {
 
     public void setHp(float hp) {
         this.hp = hp;
+    }
+
+    public boolean hasPass() {
+        return hasPass;
     }
 }

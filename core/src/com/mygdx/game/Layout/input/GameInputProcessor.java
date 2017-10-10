@@ -5,7 +5,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Config.Tex;
-import com.mygdx.game.models.map.Map;
+import com.mygdx.game.models.map.BlockMap;
 
 /**
  * Created by artem on 10/9/17.
@@ -42,18 +42,18 @@ public class GameInputProcessor implements GestureDetector.GestureListener {
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        camera.translate(-deltaX * camera.zoom * 2 / Tex.x, deltaY * camera.zoom * 2 / Tex.y);
+        camera.translate(-deltaX * camera.zoom * (float)Math.sqrt((double)Tex.x) * 1.3f, deltaY * camera.zoom * (float)Math.sqrt((double)Tex.y) * 1.3f);
         if (camera.position.x < 0) {
             camera.position.x = 0;
         }
-        if (camera.position.x > Map.sizeX * 30 * Tex.x) {
-            camera.position.x = Map.sizeX * 30 * Tex.x;
+        if (camera.position.x > BlockMap.sizeX * 30 * Tex.x) {
+            camera.position.x = BlockMap.sizeX * 30 * Tex.x;
         }
         if (camera.position.y < 0) {
             camera.position.y = 0;
         }
-        if (camera.position.y > Map.sizeY * 30 * Tex.y) {
-            camera.position.y = Map.sizeY * 30 * Tex.x;
+        if (camera.position.y > BlockMap.sizeY * 30 * Tex.y) {
+            camera.position.y = BlockMap.sizeY * 30 * Tex.x;
         }
         return false;
     }

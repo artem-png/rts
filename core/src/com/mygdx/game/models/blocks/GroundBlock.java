@@ -12,6 +12,7 @@ public class GroundBlock extends ABlock {
 
     public GroundBlock() {
         texture = Tex.groundBlock;
+        hasPass = false;
     }
     @Override
     public void act(SpriteBatch batch) {
