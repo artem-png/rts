@@ -13,9 +13,9 @@ import com.mygdx.game.models.blocks.GroundBlock;
  */
 
 public class BlockMap implements IMap {
-    private ABlock[][] blocks;
-    public static int sizeX = 30;
-    public static int sizeY = 30;
+    public ABlock[][] blocks;
+    public static int sizeX = 100;
+    public static int sizeY = 100;
 
     public BlockMap() {
         blocks = new ABlock[sizeX][sizeY];
@@ -27,10 +27,21 @@ public class BlockMap implements IMap {
                 blocks[i][j] = groundBlock;
             }
         }
+
         blocks[10][10] = null;
-        blocks[11][10] = null;
-        blocks[12][10] = null;
-        blocks[13][10] = null;
+        blocks[9][10] = null;
+        blocks[9][9] = null;
+        blocks[9][8] = null;
+        blocks[10][8] = null;
+        blocks[8][8] = null;
+        blocks[7][8] = null;
+        blocks[7][7] = null;
+        blocks[7][6] = null;
+        blocks[7][5] = null;
+        blocks[8][5] = null;
+        blocks[10][5] = null;
+        blocks[10][6] = null;
+        blocks[10][7] = null;
     }
 
     public void act(SpriteBatch batch) {
@@ -42,6 +53,10 @@ public class BlockMap implements IMap {
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
                 if (blocks[i][j] == null) {
+                    continue;
+                }
+                if (blocks[i][j].getHp() < 0) {
+                    blocks[i][j] = null;
                     continue;
                 }
                 Vector2 position = blocks[i][j].getPosition();
@@ -67,12 +82,12 @@ public class BlockMap implements IMap {
 
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
-                if (this.blocks[sizeX][sizeY] == null) {
-                    array[sizeX][sizeY] = 0;
-                } else if (this.blocks[sizeX][sizeY].hasPass) {
-                    array[sizeX][sizeY] = 0;
+                if (this.blocks[i][j] == null) {
+                    array[i][j] = 0;
+                } else if (this.blocks[i][j].hasPass) {
+                    array[i][j] = 0;
                 } else {
-                    array[sizeX][sizeY] = 1;
+                    array[i][j] = -5;
                 }
             }
         }

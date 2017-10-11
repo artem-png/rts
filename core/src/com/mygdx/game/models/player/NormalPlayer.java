@@ -10,16 +10,22 @@ import com.mygdx.game.Config.Tex;
 
 public class NormalPlayer extends APlayer {
 
-    public NormalPlayer(Vector2 position) {
+    public NormalPlayer(Vector2 position, Vector2 actualPosition) {
         texture = Tex.normalPlayer;
         hp = 100;
         this.position = position;
-        speed = 1;
+        this.actualPosition = actualPosition;
+        this.speedConst = 2f;
+        this.speedVector = new Vector2(0, 0);
+        damage = 2;
     }
 
     @Override
     public void act(SpriteBatch batch) {
-
+        moving();
+        if (currentAtackDelay >= 0) {
+            currentAtackDelay--;
+        }
     }
 
     @Override

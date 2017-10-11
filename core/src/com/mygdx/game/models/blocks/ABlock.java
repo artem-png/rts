@@ -2,6 +2,7 @@ package com.mygdx.game.models.blocks;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.models.player.APlayer;
 
 /**
  * Created by artem on 10/9/17.
@@ -33,8 +34,10 @@ public abstract class ABlock implements IBlock {
         return hp;
     }
 
-    public void addHp(float hp) {
-        this.hp += hp;
+    public void addHp(APlayer player) {
+        if (player.canAtack()) {
+            this.hp -= player.damage;
+        }
     }
 
     public void setHp(float hp) {

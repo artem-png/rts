@@ -23,7 +23,7 @@ public class Tex {
             y = x;
         }
         groundBlock = generateSprite("blockGround.png", 30 * Tex.x, 30 * Tex.y);
-        normalPlayer = generateSprite("normalPlayer.png", 25 * Tex.x, 25 * Tex.y);
+        normalPlayer = generateSprite("normalPlayer.png", 30 * Tex.x, 30 * Tex.y);
     }
 
     public Sprite generateSprite(String name, float w, float h) {

@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Config.Tex;
 import com.mygdx.game.Layout.GameLayout;
 import com.mygdx.game.models.player.APlayer;
-
 import java.util.Vector;
 
 /**
@@ -38,5 +37,9 @@ public class PlayerMap implements IMap {
     @Override
     public void add(Object object) {
         players.add(((APlayer) object));
+    }
+
+    public Vector<APlayer> getAll() {
+        return players;
     }
 }
