@@ -14,8 +14,8 @@ import com.mygdx.game.models.blocks.GroundBlock;
 
 public class BlockMap implements IMap {
     public ABlock[][] blocks;
-    public static int sizeX = 100;
-    public static int sizeY = 100;
+    public static int sizeX = 20;
+    public static int sizeY = 20;
 
     public BlockMap() {
         blocks = new ABlock[sizeX][sizeY];
@@ -70,6 +70,11 @@ public class BlockMap implements IMap {
 
     @Override
     public void add(Object object) {
+
+    }
+
+    @Override
+    public void dispose() {
 
     }
 

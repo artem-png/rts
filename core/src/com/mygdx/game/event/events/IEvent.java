@@ -18,5 +18,6 @@ public interface IEvent {
     public APlayer getPlayer();
     public void act(SpriteBatch batch);
     public boolean isAbleToWalk();
+    public void dispose();
 
 }

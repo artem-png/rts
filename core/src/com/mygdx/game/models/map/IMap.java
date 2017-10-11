@@ -9,4 +9,5 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public interface IMap {
     public void act(SpriteBatch batch);
     public void add(Object object);
+    public void dispose();
 }

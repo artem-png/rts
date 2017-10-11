@@ -11,4 +11,18 @@ public class MapHelper {
         int[][] map = GameProcess.blockMap.getAvaliableMap();
         return  map;
     }
+
+    public static int[][] getAvaliableMapToTunnel() {
+        int[][] map = GameProcess.blockMap.getAvaliableMap();
+        return  map;
+    }
+
+    public static void printMap(int [][] map) {
+        for (int i = 0; i<BlockMap.sizeX; i++) {
+            for (int j = 0; j < BlockMap.sizeY; j++) {
+                System.out.print(map[j][i] + " ");
+            }
+            System.out.println();
+        }
+    }
 }

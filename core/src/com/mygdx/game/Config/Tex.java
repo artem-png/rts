@@ -14,6 +14,8 @@ public class Tex {
 
     public static Sprite groundBlock;
     public static Sprite normalPlayer;
+    public static Sprite digButton;
+    public static Sprite marker_tonnel_1;
 
     public Tex() {
         if (y > x) {
@@ -24,6 +26,8 @@ public class Tex {
         }
         groundBlock = generateSprite("blockGround.png", 30 * Tex.x, 30 * Tex.y);
         normalPlayer = generateSprite("normalPlayer.png", 30 * Tex.x, 30 * Tex.y);
+        digButton = generateSprite("digButton.png", 90 * Tex.x, 90 * Tex.y);
+        marker_tonnel_1 = generateSprite("marker_tonnel_1.png", 30 * Tex.x, 30 * Tex.y);
     }
 
     public Sprite generateSprite(String name, float w, float h) {

@@ -64,12 +64,10 @@ public class EventController {
     }
 
     public void act(SpriteBatch batch) {
-        System.out.println(freeEvents.size() + " " + playerEvents.size());
         if (freeEvents.size() > 0) {
             for (int i = 0; i < GameProcess.playerMap.getAll().size(); i++) {
                 if (!GameProcess.playerMap.getAll().get(i).isBusy()) {
                     freeEvents.get(0).setPlayer(GameProcess.playerMap.getAll().get(i));
-                    GameProcess.playerMap.getAll().get(i).setEvent(freeEvents.get(0));
                     playerEvents.add(freeEvents.get(0));
                     freeEvents.remove(0);
                 }
@@ -78,8 +76,13 @@ public class EventController {
         for (int i = playerEvents.size() - 1; i >= 0; i--) {
             playerEvents.get(i).act(batch);
             if (playerEvents.get(i).isFinish()) {
-                playerEvents.get(i).getPlayer().removeEvent();
-                playerEvents.remove(i);}
+                playerEvents.get(i).dispose();
+                playerEvents.remove(i);
+            }
         }
+    }
+
+    public void dispose() {
+
     }
 }

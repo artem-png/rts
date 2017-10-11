@@ -45,6 +45,7 @@ public class TonnelEvent implements IEvent {
     @Override
     public void setPlayer(APlayer player) {
         this.player = player;
+        player.setEvent(this);
         movement.setPlayer(player);
     }
 
@@ -87,5 +88,10 @@ public class TonnelEvent implements IEvent {
     @Override
     public boolean isAbleToWalk() {
         return true;
+    }
+
+    @Override
+    public void dispose() {
+        player.removeEvent();
     }
 }

@@ -39,6 +39,11 @@ public class PlayerMap implements IMap {
         players.add(((APlayer) object));
     }
 
+    @Override
+    public void dispose() {
+
+    }
+
     public Vector<APlayer> getAll() {
         return players;
     }
