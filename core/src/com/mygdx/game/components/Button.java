@@ -14,16 +14,13 @@ import com.mygdx.game.Config.Tex;
 public class Button {
     private Sprite sprite;
     private Vector2 position;
-    private Vector2 size;
     private int delay = 0;
-    OrthographicCamera camera;
     public boolean isActivated;
 
     public Button(Sprite sprite, Vector2 position) {
         this.sprite = sprite;
         this.position = position;
         isActivated = false;
-        this.size = size;
     }
 
     public void setDelay(int delay) {
@@ -31,14 +28,14 @@ public class Button {
     }
 
     public void act(SpriteBatch batch) {
-        if (delay > 0) {
-            delay--;
-            return;
-        }
         batch.draw(this.sprite, position.x, position.y, this.sprite.getWidth(), this.sprite.getHeight());
     }
 
     public boolean input() {
+        if (delay > 0) {
+            delay--;
+            return false;
+        }
         if (!Gdx.input.justTouched()) {
             return false;
         }

@@ -18,7 +18,7 @@ public class GameProcess implements IProcess{
     public static BlockMap blockMap;
     public static PlayerMap playerMap;
     public static EventController eventController;
-    private SpriteBatch menuBatch;
+    public static SpriteBatch menuBatch;
     private Button digButton;
 
     public GameProcess() {
@@ -26,12 +26,13 @@ public class GameProcess implements IProcess{
         playerMap = new PlayerMap();
         eventController = new EventController();
 
-        playerMap.add(new NormalPlayer(new Vector2(8 * 30 * Tex.x, 8 * 30 * Tex.y), new Vector2(8, 8)));
-        playerMap.add(new NormalPlayer(new Vector2(10 * 30 * Tex.x, 10 * 30 * Tex.y), new Vector2(10, 10)));
+        playerMap.add(new NormalPlayer(new Vector2(10, 10)));
+        playerMap.add(new NormalPlayer(new Vector2(9, 10)));
 
         blockMap = new BlockMap();
 
         digButton = new Button(Tex.digButton, new Vector2(15 * Tex.x, 15 * Tex.y));
+        digButton.setDelay(15);
     }
 
     public void act(SpriteBatch batch) {
@@ -48,6 +49,7 @@ public class GameProcess implements IProcess{
     public void input() {
         digButton.input();
         if (digButton.isActivated) {
+            digButton.isActivated = false;
             GameLayout.addProcess(new BuildProcess(blockMap));
         }
     }

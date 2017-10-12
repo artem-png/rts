@@ -30,18 +30,8 @@ public class BlockMap implements IMap {
 
         blocks[10][10] = null;
         blocks[9][10] = null;
-        blocks[9][9] = null;
-        blocks[9][8] = null;
-        blocks[10][8] = null;
-        blocks[8][8] = null;
-        blocks[7][8] = null;
-        blocks[7][7] = null;
-        blocks[7][6] = null;
-        blocks[7][5] = null;
-        blocks[8][5] = null;
-        blocks[10][5] = null;
-        blocks[10][6] = null;
-        blocks[10][7] = null;
+        blocks[8][10] = null;
+        blocks[7][10] = null;
     }
 
     public void act(SpriteBatch batch) {

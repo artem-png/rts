@@ -10,10 +10,10 @@ import com.mygdx.game.Config.Tex;
 
 public class NormalPlayer extends APlayer {
 
-    public NormalPlayer(Vector2 position, Vector2 actualPosition) {
+    public NormalPlayer(Vector2 actualPosition) {
         texture = Tex.normalPlayer;
         hp = 100;
-        this.position = position;
+        this.position = new Vector2(actualPosition.x * 30 * Tex.x, actualPosition.y * 30 * Tex.y);
         this.actualPosition = actualPosition;
         this.speedConst = 2f;
         this.speedVector = new Vector2(0, 0);
