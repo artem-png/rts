@@ -42,7 +42,7 @@ public class GameInputProcessor implements GestureDetector.GestureListener {
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        camera.translate(-deltaX * camera.zoom * (float)Math.sqrt((double)Tex.x) * 1.3f, deltaY * camera.zoom * (float)Math.sqrt((double)Tex.y) * 1.3f);
+        camera.translate(-deltaX * camera.zoom * (float)Math.sqrt((double)Tex.x) * 0.5f, deltaY * camera.zoom * (float)Math.sqrt((double)Tex.y) * 0.5f);
         if (camera.position.x < 0) {
             camera.position.x = 0;
         }
@@ -89,8 +89,8 @@ public class GameInputProcessor implements GestureDetector.GestureListener {
         Vector3 oldUnprojection = camera.unproject(origin.cpy()).cpy();
         camera.zoom = scale;
         camera.zoom = Math.min(2.0f, Math.max(camera.zoom, 0.5f));
-        if (camera.zoom > 1.0) {
-            camera.zoom = 1.0f;
+        if (camera.zoom > 1.7) {
+            camera.zoom = 1.7f;
         }
         if (camera.zoom < 0.4f) {
             camera.zoom = 0.4f;

@@ -25,9 +25,9 @@ public class GameLayout implements ILayout {
     public GameLayout() {
         gameProcesses = new Vector<IProcess>();
         gameProcesses.add(new GameProcess());
-        camera = new OrthographicCamera(Gdx.graphics.getWidth() * 1.3f * (float) Math.sqrt((double) Tex.x), Gdx.graphics.getHeight() * 1.3f * (float) Math.sqrt((double) Tex.x));
-        camera.position.set(0, 0, 0);
-        camera.zoom = 1f;
+        camera = new OrthographicCamera(Gdx.graphics.getWidth() * 0.5f * (float) Math.sqrt((double) Tex.x), Gdx.graphics.getHeight() * 0.5f * (float) Math.sqrt((double) Tex.x));
+        camera.position.set(500, 500, 0);
+        camera.zoom = 1.7f;
         camera.update();
         gameInputProcessor = new GameInputProcessor(camera);
         Gdx.input.setInputProcessor(new GestureDetector(gameInputProcessor));
@@ -48,17 +48,17 @@ public class GameLayout implements ILayout {
          */
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             camera.zoom += 0.02;
-            if (camera.zoom > 1.0) {
-                camera.zoom = 1.0f;
+            if (camera.zoom > 1.7f) {
+                camera.zoom = 1.7f;
             }
-            camera.zoom = MathUtils.clamp(camera.zoom, 0.1f, Gdx.graphics.getWidth() * 1.3f * Tex.x / camera.viewportWidth);
+            camera.zoom = MathUtils.clamp(camera.zoom, 0.2f, Gdx.graphics.getWidth() * 0.5f * Tex.x / camera.viewportWidth);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             camera.zoom -= 0.02;
             if (camera.zoom < 0.4f) {
                 camera.zoom = 0.4f;
             }
-            camera.zoom = MathUtils.clamp(camera.zoom, 0.1f, Gdx.graphics.getWidth() * 1.3f * Tex.x / camera.viewportWidth);
+            camera.zoom = MathUtils.clamp(camera.zoom, 0.2f, Gdx.graphics.getWidth() * 0.5f * Tex.x / camera.viewportWidth);
         }
     }
 

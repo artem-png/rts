@@ -57,7 +57,6 @@ public class TonnelEvent implements IEvent {
     @Override
     public void act(SpriteBatch batch) {
         Vector2 playerXY = player.getXYPosition();
-
         int[][] map = MapHelper.getAvaliableMapToWalk();
 
         if (cells.size() == 0) {
@@ -78,6 +77,12 @@ public class TonnelEvent implements IEvent {
                 GameProcess.blockMap.blocks[(int) cells.get(0).x][(int) cells.get(0).y].addHp(player);
             }
         } else {
+            if (map[(int) cells.get(0).x][(int) cells.get(0).y] == 0) {
+                if (cells.size() > 1) {
+                    setStandCell(cells.get(0));
+                }
+                cells.remove(0);
+            }
             if (!player.isMoving) {
                 movement.isReady = false;
             }

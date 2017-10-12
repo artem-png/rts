@@ -44,6 +44,13 @@ public class EventController {
         }
     }
 
+    public Vector<IEvent> getAllEvents() {
+        Vector<IEvent> all = new Vector<IEvent>();
+        all.addAll(freeEvents);
+        all.addAll(playerEvents);
+        return all;
+    }
+
     public void dispose() {
 
     }

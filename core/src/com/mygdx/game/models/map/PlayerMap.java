@@ -20,10 +20,10 @@ public class PlayerMap implements IMap {
     }
 
     public void act(SpriteBatch batch) {
-        float x = (GameLayout.camera.position.x - (Gdx.graphics.getWidth() / (1.3f / (float) Math.sqrt((double) Tex.x))) * GameLayout.camera.zoom) - Tex.groundBlock.getWidth();
-        float y = (GameLayout.camera.position.y - (Gdx.graphics.getHeight() / (1.3f / (float) Math.sqrt((double) Tex.y))) * GameLayout.camera.zoom) - Tex.groundBlock.getHeight();
-        float w = GameLayout.camera.viewportWidth * GameLayout.camera.zoom + Tex.groundBlock.getWidth() * 8f;
-        float h = GameLayout.camera.viewportHeight * GameLayout.camera.zoom + Tex.groundBlock.getHeight() * 8f;
+        float x = (GameLayout.camera.position.x - (Gdx.graphics.getWidth() / (2f / (float) Math.sqrt((double) Tex.x))) * GameLayout.camera.zoom);
+        float y = (GameLayout.camera.position.y - (Gdx.graphics.getHeight() / (2f / (float) Math.sqrt((double) Tex.y))) * GameLayout.camera.zoom);
+        float w = GameLayout.camera.viewportWidth * GameLayout.camera.zoom + Tex.groundBlock.getWidth() * 12f;
+        float h = GameLayout.camera.viewportHeight * GameLayout.camera.zoom + Tex.groundBlock.getHeight() * 12f;
 
         for (int i = 0; i < players.size(); i++) {
             Vector2 position = players.get(i).getPosition();

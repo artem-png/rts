@@ -1,6 +1,7 @@
 package com.mygdx.game.models.map.build;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Config.Tex;
 import com.mygdx.game.models.map.BlockMap;
@@ -16,12 +17,15 @@ import java.util.Vector;
 public class TunnelMap implements IMap {
     int[][] sectors;
     int[][] choosenSectors;
+    int[][] alreadyBuild;
+
     Vector2 firstChoosen;
     Vector2 standCell;
 
     public TunnelMap() {
         sectors = new int[BlockMap.sizeX][BlockMap.sizeY];
         choosenSectors = new int[BlockMap.sizeX][BlockMap.sizeY];
+        alreadyBuild = MapHelper.getAlreadyBuldingCells();
         init();
     }
 
@@ -30,23 +34,51 @@ public class TunnelMap implements IMap {
     public void act(SpriteBatch batch) {
         for (int i = 0; i < BlockMap.sizeX; i++) {
             for (int j = 0; j < BlockMap.sizeY; j++) {
-                if (sectors[i][j] == 5) {
-                    batch.draw(
-                            Tex.marker_tonnel_1,
-                            i * 30 * Tex.x,
-                            j * 30 * Tex.y,
-                            Tex.marker_tonnel_1.getWidth(),
-                            Tex.marker_tonnel_1.getHeight()
-                    );
-                }
-                if (choosenSectors[i][j] == 5) {
-                    batch.draw(
-                            Tex.marker_tonnel_2,
-                            i * 30 * Tex.x,
-                            j * 30 * Tex.y,
-                            Tex.marker_tonnel_1.getWidth(),
-                            Tex.marker_tonnel_1.getHeight()
-                    );
+                if (firstChoosen != null) {
+                    if (sectors[i][j] == 5) {
+                        batch.draw(
+                                Tex.marker_tonnel_1,
+                                i * 30 * Tex.x,
+                                j * 30 * Tex.y,
+                                Tex.marker_tonnel_1.getWidth(),
+                                Tex.marker_tonnel_1.getHeight()
+                        );
+                    } else if (choosenSectors[i][j] == 5) {
+                        batch.draw(
+                                Tex.marker_tonnel_2,
+                                i * 30 * Tex.x,
+                                j * 30 * Tex.y,
+                                Tex.marker_tonnel_2.getWidth(),
+                                Tex.marker_tonnel_2.getHeight()
+                        );
+                    } else if (alreadyBuild[i][j] == 5) {
+                        batch.draw(
+                                Tex.marker_tonnel_3,
+                                i * 30 * Tex.x,
+                                j * 30 * Tex.y,
+                                Tex.marker_tonnel_3.getWidth(),
+                                Tex.marker_tonnel_3.getHeight()
+                        );
+                    }
+                } else {
+                    if (alreadyBuild[i][j] == 5) {
+                        batch.draw(
+                                Tex.marker_tonnel_3,
+                                i * 30 * Tex.x,
+                                j * 30 * Tex.y,
+                                Tex.marker_tonnel_3.getWidth(),
+                                Tex.marker_tonnel_3.getHeight()
+                        );
+                    }
+                    if (sectors[i][j] == 5) {
+                        batch.draw(
+                                Tex.marker_tonnel_1,
+                                i * 30 * Tex.x,
+                                j * 30 * Tex.y,
+                                Tex.marker_tonnel_1.getWidth(),
+                                Tex.marker_tonnel_1.getHeight()
+                        );
+                    }
                 }
             }
         }
@@ -134,7 +166,6 @@ public class TunnelMap implements IMap {
                 cell.y = cell.y + 1;
                 b++;
             }
-            System.out.println(checkAvaliable((int) cell.x, (int) cell.y - 1));
             if (
                     !checkAvaliable((int) cell.x, (int) cell.y - 1)
                             && choosenSectors[(int) cell.x][(int) cell.y - 1] == 5
@@ -172,16 +203,16 @@ public class TunnelMap implements IMap {
         int i = (int) firstChoosen.x;
         int j = (int) firstChoosen.y;
         int[][] avaliableMap = MapHelper.getAvaliableMapToTunnel();
-        if (avaliableMap[i - 1][j] == 0) {
+        if (i - 1 >= 0 && avaliableMap[i - 1][j] == 0) {
             standCell = new Vector2(i - 1, j);
         }
-        if (avaliableMap[i + 1][j] == 0) {
+        if (i + 1 < BlockMap.sizeX && avaliableMap[i + 1][j] == 0) {
             standCell = new Vector2(i + 1, j);
         }
-        if (avaliableMap[i][j + 1] == 0) {
+        if (j + 1 < BlockMap.sizeY && avaliableMap[i][j + 1] == 0) {
             standCell = new Vector2(i, j + 1);
         }
-        if (avaliableMap[i][j - 1] == 0) {
+        if (j - 1 >= 0 && avaliableMap[i][j - 1] == 0) {
             standCell = new Vector2(i, j - 1);
         }
         return standCell;
@@ -233,7 +264,7 @@ public class TunnelMap implements IMap {
                     !checkAvaliable((int) cell.x, (int) cell.y - 1)
                             && choosenSectors[(int) cell.x][(int) cell.y - 1] == 5
                             && newChoosenSectors[(int) cell.x][(int) cell.y - 1] != 5
-            ) {
+                    ) {
                 vector2s.add(new Vector2(cell.x, cell.y - 1));
                 newChoosenSectors[(int) cell.x][(int) cell.y - 1] = 5;
                 cell.y = cell.y - 1;
@@ -292,8 +323,8 @@ public class TunnelMap implements IMap {
 
     public int choosenCount() {
         int a = 0;
-        for (int i = 1; i < BlockMap.sizeX - 1; i++) {
-            for (int j = 1; j < BlockMap.sizeY - 1; j++) {
+        for (int i = 0; i < BlockMap.sizeX; i++) {
+            for (int j = 0; j < BlockMap.sizeY; j++) {
                 if (choosenSectors[i][j] == 5) {
                     a++;
                 }

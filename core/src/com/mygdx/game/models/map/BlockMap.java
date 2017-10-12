@@ -14,8 +14,8 @@ import com.mygdx.game.models.blocks.GroundBlock;
 
 public class BlockMap implements IMap {
     public ABlock[][] blocks;
-    public static int sizeX = 20;
-    public static int sizeY = 20;
+    public static int sizeX = 13;
+    public static int sizeY = 13;
 
     public BlockMap() {
         blocks = new ABlock[sizeX][sizeY];
@@ -35,25 +35,28 @@ public class BlockMap implements IMap {
     }
 
     public void act(SpriteBatch batch) {
-        float x = (GameLayout.camera.position.x - (Gdx.graphics.getWidth() / (1.3f / (float) Math.sqrt((double) Tex.x))) * GameLayout.camera.zoom) - Tex.groundBlock.getWidth();
-        float y = (GameLayout.camera.position.y - (Gdx.graphics.getHeight() / (1.3f / (float) Math.sqrt((double) Tex.y))) * GameLayout.camera.zoom) - Tex.groundBlock.getHeight();
-        float w = GameLayout.camera.viewportWidth * GameLayout.camera.zoom + Tex.groundBlock.getWidth() * 8f;
-        float h = GameLayout.camera.viewportHeight * GameLayout.camera.zoom + Tex.groundBlock.getHeight() * 8f;
+        float x = (GameLayout.camera.position.x - (Gdx.graphics.getWidth() / (2f / (float) Math.sqrt((double) Tex.x))) * GameLayout.camera.zoom);
+        float y = (GameLayout.camera.position.y - (Gdx.graphics.getHeight() / (2f / (float) Math.sqrt((double) Tex.y))) * GameLayout.camera.zoom);
+        float w = GameLayout.camera.viewportWidth * GameLayout.camera.zoom + Tex.groundBlock.getWidth() * 12f * GameLayout.camera.zoom;
+        float h = GameLayout.camera.viewportHeight * GameLayout.camera.zoom + Tex.groundBlock.getHeight() * 12f * GameLayout.camera.zoom;
 
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
                 if (blocks[i][j] == null) {
-                    continue;
-                }
-                if (blocks[i][j].getHp() < 0) {
+                    float bx = i * 30 * Tex.x;
+                    float by = j * Tex.y * 30;
+                    if (bx > x && bx < x + w && by > y && by < y + h) {
+                        batch.draw(Tex.dug_tonnel_1, bx, by, Tex.dug_tonnel_1.getWidth(), Tex.dug_tonnel_1.getHeight());
+                    }
+                } else if (blocks[i][j].getHp() < 0) {
                     blocks[i][j] = null;
-                    continue;
+                } else {
+                    Vector2 position = blocks[i][j].getPosition();
+                    if (position.x > x && position.x < x + w && position.y > y && position.y < y + h) {
+                        blocks[i][j].render(batch);
+                    }
+                    blocks[i][j].act(batch);
                 }
-                Vector2 position = blocks[i][j].getPosition();
-                if (position.x > x && position.x < x + w && position.y > y && position.y < y + h) {
-                    blocks[i][j].render(batch);
-                }
-                blocks[i][j].act(batch);
             }
         }
     }

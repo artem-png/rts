@@ -17,6 +17,8 @@ public class Tex {
     public static Sprite digButton;
     public static Sprite marker_tonnel_1;
     public static Sprite marker_tonnel_2;
+    public static Sprite marker_tonnel_3;
+    public static Sprite dug_tonnel_1;
     public static Sprite acceptButton;
 
     public Tex() {
@@ -30,8 +32,11 @@ public class Tex {
         normalPlayer = generateSprite("normalPlayer.png", 30 * Tex.x, 30 * Tex.y);
         digButton = generateSprite("digButton.png", 90 * Tex.x, 90 * Tex.y);
         acceptButton = generateSprite("accept.png", 90 * Tex.x, 90 * Tex.y);
-        marker_tonnel_1 = generateSprite("marker_tonnel_1.png", 30 * Tex.x, 30 * Tex.y);
-        marker_tonnel_2 = generateSprite("marker_tonnel_2.png", 30 * Tex.x, 30 * Tex.y);
+        marker_tonnel_1 = generateSprite("marker_tonnel_2.png", 30 * Tex.x, 30 * Tex.y);
+        marker_tonnel_2 = generateSprite("marker_tonnel_1.png", 30 * Tex.x, 30 * Tex.y);
+        marker_tonnel_3 = generateSprite("marker_tonnel_3.png", 30 * Tex.x, 30 * Tex.y);
+        dug_tonnel_1 = generateSprite("dug_tonnel_1.png", 30 * Tex.x, 30 * Tex.y);
+
     }
 
     public Sprite generateSprite(String name, float w, float h) {
