@@ -19,44 +19,6 @@ public class EventController {
     public EventController() {
         freeEvents = new Vector<IEvent>();
         playerEvents = new Vector<IEvent>();
-
-//        TonnelEvent event = new TonnelEvent();
-//        event.setStandCell(new Vector2(10, 5));
-//        Vector<Vector2> vector2s = new Vector<Vector2>();
-//        vector2s.add(new Vector2(9, 5));
-//        vector2s.add(new Vector2(9, 4));
-//        vector2s.add(new Vector2(8, 4));
-//        event.setCells(vector2s);
-//        this.addEvent(event);
-//
-//        event = new TonnelEvent();
-//        event.setStandCell(new Vector2(10, 10));
-//        vector2s = new Vector<Vector2>();
-//        vector2s.add(new Vector2(10, 11));
-//        vector2s.add(new Vector2(10, 12));
-//        vector2s.add(new Vector2(10, 13));
-//        vector2s.add(new Vector2(10, 14));
-//        event.setCells(vector2s);
-//        this.addEvent(event);
-//
-//        event = new TonnelEvent();
-//        event.setStandCell(new Vector2(9, 10));
-//        vector2s = new Vector<Vector2>();
-//        vector2s.add(new Vector2(8, 10));
-//        vector2s.add(new Vector2(7, 10));
-//        vector2s.add(new Vector2(6, 10));
-//        event.setCells(vector2s);
-//        this.addEvent(event);
-//
-//        event = new TonnelEvent();
-//        event.setStandCell(new Vector2(8, 8));
-//        vector2s = new Vector<Vector2>();
-//        vector2s.add(new Vector2(8, 7));
-//        vector2s.add(new Vector2(8, 6));
-//        vector2s.add(new Vector2(9, 6));
-//        vector2s.add(new Vector2(9, 7));
-//        event.setCells(vector2s);
-//        this.addEvent(event);
     }
 
     public void addEvent(IEvent event) {
