@@ -147,30 +147,6 @@ public class Movement {
                 isVolnaReady = false;
             }
         }
-        if ((y + 1 < mapsizey && x + 1 < mapsizex)) {
-            if (map[x + 1][y + 1] > number || map[x + 1][y + 1] == 0) {
-                map[x + 1][y + 1] = number;
-                isVolnaReady = false;
-            }
-        }
-        if ((y - 1 >= 0 && x - 1 >= 0)) {
-            if (map[x - 1][y - 1] > number || map[x - 1][y - 1] == 0) {
-                map[x - 1][y - 1] = number;
-                isVolnaReady = false;
-            }
-        }
-        if ((y - 1 >= 0 && x + 1 < mapsizex)) {
-            if (map[x + 1][y - 1] > number || map[x + 1][y - 1] == 0) {
-                map[x + 1][y - 1] = number;
-                isVolnaReady = false;
-            }
-        }
-        if ((y + 1 < mapsizey && x - 1 >= 0)) {
-            if (map[x - 1][y + 1] > number || map[x - 1][y + 1] == 0) {
-                map[x - 1][y + 1] = number;
-                isVolnaReady = false;
-            }
-        }
 
         return map;
     }
@@ -209,38 +185,6 @@ public class Movement {
                 if (map[x][y + 1] < min) {
                     min = map[x][y + 1];
                     minVector.set(x, y + 1);
-                }
-            }
-        }
-        if ((y + 1 < mapsizey && x + 1 < mapsizex)) {
-            if (map[x + 1][y + 1] > 0) {
-                if (map[x + 1][y + 1] < min) {
-                    min = map[x + 1][y + 1];
-                    minVector.set(x + 1, y + 1);
-                }
-            }
-        }
-        if ((y - 1 >= 0 && x - 1 >= 0)) {
-            if (map[x - 1][y - 1] > 0) {
-                if (map[x - 1][y - 1] < min) {
-                    min = map[x - 1][y - 1];
-                    minVector.set(x - 1, y - 1);
-                }
-            }
-        }
-        if ((y - 1 >= 0 && x + 1 < mapsizex)) {
-            if (map[x + 1][y - 1] > 0) {
-                if (map[x + 1][y - 1] < min) {
-                    min = map[x + 1][y - 1];
-                    minVector.set(x + 1, y - 1);
-                }
-            }
-        }
-        if ((y + 1 < mapsizey && x - 1 >= 0)) {
-            if (map[x - 1][y + 1] > 0) {
-                if (map[x - 1][y + 1] < min) {
-                    min = map[x - 1][y + 1];
-                    minVector.set(x - 1, y + 1);
                 }
             }
         }

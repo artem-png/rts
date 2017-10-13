@@ -16,6 +16,7 @@ public interface IEvent {
     public void setStandCell(Vector2 vector2);
     public void setPlayer(APlayer player);
     public APlayer getPlayer();
+    public Vector2 getCellForDistance();
     public void act(SpriteBatch batch);
     public boolean isAbleToWalk();
     public void dispose();

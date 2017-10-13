@@ -26,8 +26,17 @@ public class GameProcess implements IProcess{
         playerMap = new PlayerMap();
         eventController = new EventController();
 
+        playerMap.add(new NormalPlayer(new Vector2(8, 9)));
+        playerMap.add(new NormalPlayer(new Vector2(8, 3)));
+        playerMap.add(new NormalPlayer(new Vector2(8, 4)));
+        playerMap.add(new NormalPlayer(new Vector2(8, 5)));
+        playerMap.add(new NormalPlayer(new Vector2(8, 6)));
+        playerMap.add(new NormalPlayer(new Vector2(8, 7)));
+        playerMap.add(new NormalPlayer(new Vector2(10, 6)));
         playerMap.add(new NormalPlayer(new Vector2(10, 10)));
         playerMap.add(new NormalPlayer(new Vector2(9, 10)));
+        playerMap.add(new NormalPlayer(new Vector2(8, 10)));
+        playerMap.add(new NormalPlayer(new Vector2(7, 10)));
 
         blockMap = new BlockMap();
 

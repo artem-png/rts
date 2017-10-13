@@ -39,10 +39,12 @@ public class MapHelper {
 
     public static void printMap(int[][] map) {
         for (int i = 0; i < BlockMap.sizeX; i++) {
-            for (int j = 0; j < BlockMap.sizeY; j++) {
-                System.out.print(map[i][j] + " ");
+            for (int j = BlockMap.sizeY - 1; j > 0; j--) {
+                System.out.print(map[j][i] + "  ");
             }
             System.out.println();
+            System.out.println();
+
         }
     }
 }

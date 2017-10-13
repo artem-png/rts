@@ -14,8 +14,8 @@ import com.mygdx.game.models.blocks.GroundBlock;
 
 public class BlockMap implements IMap {
     public ABlock[][] blocks;
-    public static int sizeX = 13;
-    public static int sizeY = 13;
+    public static int sizeX = 200;
+    public static int sizeY = 200;
 
     public BlockMap() {
         blocks = new ABlock[sizeX][sizeY];
@@ -32,6 +32,21 @@ public class BlockMap implements IMap {
         blocks[9][10] = null;
         blocks[8][10] = null;
         blocks[7][10] = null;
+        blocks[10][9] = null;
+        blocks[10][8] = null;
+        blocks[10][7] = null;
+        blocks[10][6] = null;
+        blocks[10][5] = null;
+        blocks[10][4] = null;
+        blocks[10][3] = null;
+        blocks[8][9] = null;
+        blocks[8][8] = null;
+        blocks[8][7] = null;
+        blocks[8][6] = null;
+        blocks[8][5] = null;
+        blocks[8][4] = null;
+        blocks[8][3] = null;
+
     }
 
     public void act(SpriteBatch batch) {

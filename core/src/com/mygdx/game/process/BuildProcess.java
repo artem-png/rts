@@ -58,7 +58,7 @@ public class BuildProcess implements IProcess {
             if (vector2s != null) {
                 TonnelEvent tonnelEvent = new TonnelEvent();
                 tonnelEvent.setCells(tunnelMap.generateDataForEvent());
-                tonnelEvent.setStandCell(tunnelMap.getStandCell());
+                tonnelEvent.setStandCells(tunnelMap.getStandCells());
                 GameProcess.eventController.addEvent(tonnelEvent);
             }
             GameLayout.removeProcess();

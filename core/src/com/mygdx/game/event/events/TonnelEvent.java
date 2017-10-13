@@ -2,6 +2,7 @@ package com.mygdx.game.event.events;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.event.eventHelpers.Distance;
 import com.mygdx.game.event.eventHelpers.Movement;
 import com.mygdx.game.models.map.MapHelper;
 import com.mygdx.game.models.player.APlayer;
@@ -15,6 +16,7 @@ import java.util.Vector;
 
 public class TonnelEvent implements IEvent {
     public Vector<Vector2> cells;
+    public Vector<Vector2> standCells;
     public Vector2 standCell;
     private boolean isFinish = false;
     public APlayer player;
@@ -35,6 +37,10 @@ public class TonnelEvent implements IEvent {
         cells = vector2s;
     }
 
+    public void setStandCells(Vector<Vector2> vector2) {
+        standCells = vector2;
+    }
+
     @Override
     public void setStandCell(Vector2 vector2) {
         standCell = vector2;
@@ -47,11 +53,35 @@ public class TonnelEvent implements IEvent {
         this.player = player;
         player.setEvent(this);
         movement.setPlayer(player);
+        if (standCells != null) {
+            Vector2 finalPosition = null;
+
+            if (standCells.size() == 1) {
+                finalPosition = new Vector2(standCells.firstElement());
+            } else {
+                int min = 100000;
+                for (int i = 0; i < standCells.size(); i++) {
+
+                    int distance = Distance.getDistance(player.actualPosition, standCells.get(i));
+                    System.out.println(distance);
+                    if (distance < min) {
+                        min = distance;
+                        finalPosition = new Vector2(standCells.get(i));
+                    }
+                }
+            }
+            this.setStandCell(finalPosition);
+        }
     }
 
     @Override
     public APlayer getPlayer() {
         return player;
+    }
+
+    @Override
+    public Vector2 getCellForDistance() {
+        return cells.get(0);
     }
 
     @Override

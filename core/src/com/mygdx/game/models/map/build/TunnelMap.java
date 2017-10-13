@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Config.Tex;
+import com.mygdx.game.event.eventHelpers.Distance;
 import com.mygdx.game.models.map.BlockMap;
 import com.mygdx.game.models.map.IMap;
 import com.mygdx.game.models.map.MapHelper;
@@ -199,23 +200,25 @@ public class TunnelMap implements IMap {
         }
     }
 
-    public Vector2 getStandCell() {
+    public Vector<Vector2> getStandCells() {
         int i = (int) firstChoosen.x;
         int j = (int) firstChoosen.y;
+        Vector<Vector2> vector2s = new Vector<Vector2>();
         int[][] avaliableMap = MapHelper.getAvaliableMapToTunnel();
         if (i - 1 >= 0 && avaliableMap[i - 1][j] == 0) {
-            standCell = new Vector2(i - 1, j);
+            vector2s.add(new Vector2(i - 1, j));
         }
         if (i + 1 < BlockMap.sizeX && avaliableMap[i + 1][j] == 0) {
-            standCell = new Vector2(i + 1, j);
+            vector2s.add(new Vector2(i + 1, j));
         }
         if (j + 1 < BlockMap.sizeY && avaliableMap[i][j + 1] == 0) {
-            standCell = new Vector2(i, j + 1);
+            vector2s.add(new Vector2(i, j + 1));
         }
         if (j - 1 >= 0 && avaliableMap[i][j - 1] == 0) {
-            standCell = new Vector2(i, j - 1);
+            vector2s.add(new Vector2(i, j - 1));
         }
-        return standCell;
+
+        return vector2s;
     }
 
     public Vector<Vector2> generateDataForEvent() {
