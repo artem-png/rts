@@ -38,8 +38,9 @@ public class PlayerMap implements IMap {
     }
 
     @Override
-    public void add(Object object) {
+    public boolean add(Object object) {
         players.add(((APlayer) object));
+        return true;
     }
 
     @Override

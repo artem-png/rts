@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.models.map.BlockMap;
 import com.mygdx.game.models.map.MapHelper;
 import com.mygdx.game.models.player.APlayer;
+import com.mygdx.game.process.GameProcess;
 
 import java.util.Vector;
 
@@ -56,12 +57,14 @@ public class Movement {
             }
         }
         if (!isReady) {
+            GameProcess.blockMap.generateAvaliableMap();
             int[][] map = MapHelper.getAvaliableMapToWalk();
             volna(map);
         }
     }
 
     public void volna(int[][] map) {
+
         vector2sHelp = new Vector<Vector2>();
 
         map[(int) player.getXYPosition().x][(int) player.getXYPosition().y] = -1;
@@ -73,7 +76,6 @@ public class Movement {
         int a = 1;
         while (vector2s.size() > 0) {
             isVolnaReady = true;
-
             for (int i = 0; i < vector2s.size(); i++) {
                 if (map[(int) vector2s.get(i).x][(int) vector2s.get(i).y] == a) {
                     map = fillAround(map, (int) vector2s.get(i).x, (int) vector2s.get(i).y, a + 1);
@@ -123,14 +125,6 @@ public class Movement {
                 }
             }
         }
-//        System.out.println(coords.x + " " + coords.y);
-//        for (int j = 0; j < BlockMap.sizeX; j++) {
-//            for (int i = 0; i < BlockMap.sizeY; i++) {
-//                System.out.print(map[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-//        Gdx.app.exit();
     }
 
     public int[][] fillAround(int[][] map, int x, int y, int number) {

@@ -3,6 +3,7 @@ package com.mygdx.game.event.eventHelpers;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.models.map.BlockMap;
 import com.mygdx.game.models.map.MapHelper;
+import com.mygdx.game.process.GameProcess;
 
 import java.util.Vector;
 
@@ -14,7 +15,6 @@ public class Distance {
 
 
     public static int getDistance(Vector2 gnomPosition, Vector2 cellPosition) {
-
         vector2s = new Vector<Vector2>();
         vector2sHelp = new Vector<Vector2>();
         if (cellPosition.x == gnomPosition.x) {
@@ -30,6 +30,7 @@ public class Distance {
                 return 0;
             }
         }
+        GameProcess.blockMap.generateAvaliableMap();
         int[][] map = MapHelper.getAvaliableMapToWalk();
         isReady = false;
         map[(int) gnomPosition.x][(int) gnomPosition.y] = -1;

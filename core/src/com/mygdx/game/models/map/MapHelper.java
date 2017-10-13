@@ -13,13 +13,11 @@ import java.util.Vector;
 
 public class MapHelper {
     public static int[][] getAvaliableMapToWalk() {
-        int[][] map = GameProcess.blockMap.getAvaliableMap();
-        return map;
+        return GameProcess.blockMap.getAvaliableMap();
     }
 
     public static int[][] getAvaliableMapToTunnel() {
-        int[][] map = GameProcess.blockMap.getAvaliableMap();
-        return map;
+        return GameProcess.blockMap.getAvaliableMap();
     }
 
     public static int[][] getAlreadyBuldingCells() {

@@ -1,9 +1,12 @@
 package com.mygdx.game.process;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Config.Tex;
 import com.mygdx.game.Layout.GameLayout;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.components.Button;
 import com.mygdx.game.event.EventController;
 import com.mygdx.game.models.map.BlockMap;
@@ -37,6 +40,17 @@ public class GameProcess implements IProcess{
         playerMap.add(new NormalPlayer(new Vector2(9, 10)));
         playerMap.add(new NormalPlayer(new Vector2(8, 10)));
         playerMap.add(new NormalPlayer(new Vector2(7, 10)));
+        playerMap.add(new NormalPlayer(new Vector2(8, 9)));
+        playerMap.add(new NormalPlayer(new Vector2(8, 3)));
+        playerMap.add(new NormalPlayer(new Vector2(8, 4)));
+        playerMap.add(new NormalPlayer(new Vector2(8, 5)));
+        playerMap.add(new NormalPlayer(new Vector2(8, 6)));
+        playerMap.add(new NormalPlayer(new Vector2(8, 7)));
+        playerMap.add(new NormalPlayer(new Vector2(10, 6)));
+        playerMap.add(new NormalPlayer(new Vector2(10, 10)));
+        playerMap.add(new NormalPlayer(new Vector2(9, 10)));
+        playerMap.add(new NormalPlayer(new Vector2(8, 10)));
+        playerMap.add(new NormalPlayer(new Vector2(7, 10)));
 
         blockMap = new BlockMap();
 
@@ -46,6 +60,7 @@ public class GameProcess implements IProcess{
 
     public void act(SpriteBatch batch) {
         eventController.act(batch);
+
         blockMap.act(batch);
         playerMap.act(batch);
         batch.end();

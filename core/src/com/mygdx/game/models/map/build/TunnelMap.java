@@ -1,5 +1,6 @@
 package com.mygdx.game.models.map.build;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.math.Vector2;
@@ -8,6 +9,7 @@ import com.mygdx.game.event.eventHelpers.Distance;
 import com.mygdx.game.models.map.BlockMap;
 import com.mygdx.game.models.map.IMap;
 import com.mygdx.game.models.map.MapHelper;
+import com.mygdx.game.process.GameProcess;
 
 import java.util.Vector;
 
@@ -86,6 +88,7 @@ public class TunnelMap implements IMap {
     }
 
     public void init() {
+        GameProcess.blockMap.generateAvaliableMap();
         int[][] avaliableMap = MapHelper.getAvaliableMapToTunnel();
         for (int i = 0; i < BlockMap.sizeX; i++) {
             for (int j = 0; j < BlockMap.sizeY; j++) {
@@ -282,7 +285,7 @@ public class TunnelMap implements IMap {
     }
 
     @Override
-    public void add(Object object) {
+    public boolean add(Object object) {
         Vector2 vector2 = (Vector2) object;
         if (sectors[(int) vector2.x][(int) vector2.y] == 5) {
             choosenSectors[(int) vector2.x][(int) vector2.y] = 5;
@@ -291,9 +294,14 @@ public class TunnelMap implements IMap {
             }
             sectors = new int[BlockMap.sizeX][BlockMap.sizeY];
             refreshAfterAdd(vector2);
-        } else if (choosenSectors[(int) vector2.x][(int) vector2.y] == 5) {
+            return true;
+
+        } else if (choosenSectors[(int) vector2.x][(int) vector2.y] == 5 && Gdx.input.justTouched()) {
             remove(vector2);
             refreshAfterDelete(vector2);
+            return true;
+        } else {
+            return false;
         }
     }
 

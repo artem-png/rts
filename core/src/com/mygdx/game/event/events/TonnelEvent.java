@@ -2,6 +2,7 @@ package com.mygdx.game.event.events;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.event.eventHelpers.Distance;
 import com.mygdx.game.event.eventHelpers.Movement;
 import com.mygdx.game.models.map.MapHelper;
@@ -87,8 +88,6 @@ public class TonnelEvent implements IEvent {
     @Override
     public void act(SpriteBatch batch) {
         Vector2 playerXY = player.getXYPosition();
-        int[][] map = MapHelper.getAvaliableMapToWalk();
-
         if (cells.size() == 0) {
             isFinish = true;
             return;
@@ -96,18 +95,19 @@ public class TonnelEvent implements IEvent {
         if (player.isMoving()) {
             return;
         }
+
         if (standCell.x == playerXY.x && standCell.y == playerXY.y) {
             movement.isReady = true;
-            if (map[(int) cells.get(0).x][(int) cells.get(0).y] == 0) {
+            if (MapHelper.getAvaliableMapToWalk()[(int) cells.get(0).x][(int) cells.get(0).y] == 0) {
                 if (cells.size() > 1) {
                     setStandCell(cells.get(0));
                 }
                 cells.remove(0);
             } else {
-                GameProcess.blockMap.blocks[(int) cells.get(0).x][(int) cells.get(0).y].addHp(player);
+                GameProcess.blockMap.getBlock((int) cells.get(0).x, (int) cells.get(0).y).addHp(player);
             }
         } else {
-            if (map[(int) cells.get(0).x][(int) cells.get(0).y] == 0) {
+            if (MapHelper.getAvaliableMapToWalk()[(int) cells.get(0).x][(int) cells.get(0).y] == 0) {
                 if (cells.size() > 1) {
                     setStandCell(cells.get(0));
                 }
@@ -116,6 +116,7 @@ public class TonnelEvent implements IEvent {
             if (!player.isMoving) {
                 movement.isReady = false;
             }
+
             movement.act();
         }
     }

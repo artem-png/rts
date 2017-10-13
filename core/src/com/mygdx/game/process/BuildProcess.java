@@ -1,11 +1,13 @@
 package com.mygdx.game.process;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Config.Tex;
 import com.mygdx.game.Layout.GameLayout;
+import com.mygdx.game.Layout.input.GameInputProcessor;
 import com.mygdx.game.components.Button;
 import com.mygdx.game.event.events.TonnelEvent;
 import com.mygdx.game.models.map.BlockMap;
@@ -21,6 +23,7 @@ public class BuildProcess implements IProcess {
     private BlockMap blockMap;
     private TunnelMap tunnelMap;
     private Button accept;
+    private boolean isPressed = false;
 
     public BuildProcess(BlockMap map) {
         this.blockMap = map;
@@ -42,20 +45,28 @@ public class BuildProcess implements IProcess {
 
     @Override
     public void input() {
-        if (Gdx.input.justTouched()) {
+        if (Gdx.input.isTouched()) {
             Vector3 ar = GameLayout.camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
             if (ar.x >= 0 && ar.y >= 0) {
                 int x = (int) (ar.x / (30 * Tex.x));
                 int y = (int) (ar.y / (30 * Tex.y));
                 if (x >= 0 && y >= 0 && x < BlockMap.sizeX && y < BlockMap.sizeY) {
-                    tunnelMap.add(new Vector2(x, y));
+                    if (tunnelMap.add(new Vector2(x, y))) {
+                        isPressed = true;
+                        GameInputProcessor.isNeed = false;
+                    } else if (!isPressed) {
+                        GameInputProcessor.isNeed = true;
+                    }
                 }
             }
+        } else {
+            isPressed = false;
         }
         if (accept.input()) {
             accept.isActivated = false;
             Vector<Vector2> vector2s = tunnelMap.generateDataForEvent();
             if (vector2s != null) {
+                GameInputProcessor.isNeed = true;
                 TonnelEvent tonnelEvent = new TonnelEvent();
                 tonnelEvent.setCells(tunnelMap.generateDataForEvent());
                 tonnelEvent.setStandCells(tunnelMap.getStandCells());

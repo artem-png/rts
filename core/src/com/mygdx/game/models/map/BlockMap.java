@@ -15,8 +15,8 @@ import com.mygdx.game.models.blocks.GroundBlock;
 
 public class BlockMap implements IMap {
     public ABlock[][] blocks;
-    public static int sizeX = 200;
-    public static int sizeY = 200;
+    public static int sizeX = 300;
+    public static int sizeY = 300;
 
     float deltaX;
     float deltaY;
@@ -25,12 +25,14 @@ public class BlockMap implements IMap {
 
     public BlockMap() {
         blocks = new ABlock[sizeX][sizeY];
+        avaliableMap = new int[sizeX][sizeY];
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
                 GroundBlock groundBlock = new GroundBlock();
                 groundBlock.setHp(3);
                 groundBlock.setPosition(new Vector2(i * Tex.groundBlock.getWidth(), j * Tex.groundBlock.getHeight()));
                 blocks[i][j] = groundBlock;
+                avaliableMap[i][j] = -5;
             }
         }
 
@@ -52,7 +54,7 @@ public class BlockMap implements IMap {
         blocks[8][5] = null;
         blocks[8][4] = null;
         blocks[8][3] = null;
-        avaliableMap = generateAvaliableMap();
+        generateAvaliableMap();
 
         deltaX = (Gdx.graphics.getWidth() / (2f / (float) Math.sqrt((double) Tex.x)));
         deltaY = (Gdx.graphics.getHeight() / (2f / (float) Math.sqrt((double) Tex.y)));
@@ -71,7 +73,7 @@ public class BlockMap implements IMap {
 
                 } else if (blocks[i][j].getHp() < 0) {
                     blocks[i][j] = null;
-
+                    generateAvaliableMap();
                 } else {
                     Vector2 position = blocks[i][j].getPosition();
                     if (position.x > x && position.x < x + w && position.y > y && position.y < y + h) {
@@ -84,8 +86,8 @@ public class BlockMap implements IMap {
     }
 
     @Override
-    public void add(Object object) {
-
+    public boolean add(Object object) {
+        return true;
     }
 
     @Override
@@ -94,28 +96,27 @@ public class BlockMap implements IMap {
     }
 
     public ABlock getBlock(int x, int y) {
+        if (this.blocks[x][y] == null) {
+            return new GroundBlock();
+        }
         return this.blocks[x][y];
     }
 
-    public int[][] generateAvaliableMap() {
-        int[][] array = new int[sizeX][sizeY];
-
+    public void generateAvaliableMap() {
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
                 if (this.blocks[i][j] == null) {
-                    array[i][j] = 0;
+                    avaliableMap[i][j] = 0;
                 } else if (this.blocks[i][j].hasPass) {
-                    array[i][j] = 0;
+                    avaliableMap[i][j] = 0;
                 } else {
-                    array[i][j] = -5;
+                    avaliableMap[i][j] = -5;
                 }
             }
         }
-
-        return array;
     }
 
     public int[][] getAvaliableMap() {
-        return generateAvaliableMap();
+        return avaliableMap;
     }
 }

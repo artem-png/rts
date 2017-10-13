@@ -21,7 +21,7 @@ import java.util.Vector;
 public class GameLayout implements ILayout {
     public static Vector<IProcess> gameProcesses;
     public static OrthographicCamera camera;
-    private GameInputProcessor gameInputProcessor;
+    public static GameInputProcessor gameInputProcessor;
     int a = 0;
 
     public GameLayout() {
@@ -38,15 +38,14 @@ public class GameLayout implements ILayout {
 
     @Override
     public void render(SpriteBatch batch) {
-
-        long start = System.nanoTime();
+//        batch.draw(Tex.bg, 0 * Tex.x, 0 * Tex.y, 2000 * Tex.x, 2000 * Tex.y);
+//        long start = System.nanoTime();
         batch.setProjectionMatrix(camera.combined);
         camera.update();
         gameProcesses.lastElement().act(batch);
-
-        long finish = System.nanoTime();
-        long timeConsumedMillis = (finish - start) / 100000;
-        //System.out.print("gameLayout:render: " + timeConsumedMillis);
+//        long finish = System.nanoTime();
+//        long timeConsumedMillis = (finish - start) / 100000;
+//        System.out.print("gameLayout:render: " + timeConsumedMillis);
     }
 
     @Override

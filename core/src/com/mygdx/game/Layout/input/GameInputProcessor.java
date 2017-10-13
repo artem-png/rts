@@ -15,6 +15,7 @@ public class GameInputProcessor implements GestureDetector.GestureListener {
     OrthographicCamera camera;
     private Vector2 oldInitialFirstPointer = null, oldInitialSecondPointer = null;
     private float oldScale;
+    public static boolean isNeed = true;
 
     public GameInputProcessor(OrthographicCamera camera) {
         this.camera = camera;
@@ -42,18 +43,20 @@ public class GameInputProcessor implements GestureDetector.GestureListener {
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        camera.translate(-deltaX * camera.zoom * (float)Math.sqrt((double)Tex.x) * 0.5f, deltaY * camera.zoom * (float)Math.sqrt((double)Tex.y) * 0.5f);
-        if (camera.position.x < 0) {
-            camera.position.x = 0;
-        }
-        if (camera.position.x > BlockMap.sizeX * 30 * Tex.x) {
-            camera.position.x = BlockMap.sizeX * 30 * Tex.x;
-        }
-        if (camera.position.y < 0) {
-            camera.position.y = 0;
-        }
-        if (camera.position.y > BlockMap.sizeY * 30 * Tex.y) {
-            camera.position.y = BlockMap.sizeY * 30 * Tex.x;
+        if (isNeed) {
+            camera.translate(-deltaX * camera.zoom * (float) Math.sqrt((double) Tex.x) * 0.5f, deltaY * camera.zoom * (float) Math.sqrt((double) Tex.y) * 0.5f);
+            if (camera.position.x < 0) {
+                camera.position.x = 0;
+            }
+            if (camera.position.x > BlockMap.sizeX * 30 * Tex.x) {
+                camera.position.x = BlockMap.sizeX * 30 * Tex.x;
+            }
+            if (camera.position.y < 0) {
+                camera.position.y = 0;
+            }
+            if (camera.position.y > BlockMap.sizeY * 30 * Tex.y) {
+                camera.position.y = BlockMap.sizeY * 30 * Tex.x;
+            }
         }
         return false;
     }
@@ -70,18 +73,22 @@ public class GameInputProcessor implements GestureDetector.GestureListener {
 
     @Override
     public boolean pinch(Vector2 initialFirstPointer, Vector2 initialSecondPointer, Vector2 firstPointer, Vector2 secondPointer) {
-        if (!(initialFirstPointer.equals(oldInitialFirstPointer) && initialSecondPointer.equals(oldInitialSecondPointer))) {
-            oldInitialFirstPointer = initialFirstPointer.cpy();
-            oldInitialSecondPointer = initialSecondPointer.cpy();
-            oldScale = camera.zoom;
+        if (isNeed) {
+
+            if (!(initialFirstPointer.equals(oldInitialFirstPointer) && initialSecondPointer.equals(oldInitialSecondPointer))) {
+                oldInitialFirstPointer = initialFirstPointer.cpy();
+                oldInitialSecondPointer = initialSecondPointer.cpy();
+                oldScale = camera.zoom;
+            }
+            Vector3 center = new Vector3(
+                    (firstPointer.x + initialSecondPointer.x) / 2,
+                    (firstPointer.y + initialSecondPointer.y) / 2,
+                    0
+            );
+            zoomCamera(center, oldScale * initialFirstPointer.dst(initialSecondPointer) / firstPointer.dst(secondPointer));
         }
-        Vector3 center = new Vector3(
-                (firstPointer.x + initialSecondPointer.x) / 2,
-                (firstPointer.y + initialSecondPointer.y) / 2,
-                0
-        );
-        zoomCamera(center, oldScale * initialFirstPointer.dst(initialSecondPointer) / firstPointer.dst(secondPointer));
         return true;
+
     }
 
     private void zoomCamera(Vector3 origin, float scale) {
