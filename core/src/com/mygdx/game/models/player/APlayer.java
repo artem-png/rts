@@ -139,7 +139,7 @@ public abstract class APlayer implements IPlayer {
 
     public void goTop() {
         if (!isMoving()) {
-            movingDistantion = Tex.groundBlock.getHeight();
+            movingDistantion = 30 * Tex.y;
             speedVector.add(0, 1f * getSpeedConst() * Tex.y);
             setMoving(true);
         }
@@ -147,7 +147,7 @@ public abstract class APlayer implements IPlayer {
 
     public void goDown() {
         if (!isMoving()) {
-            movingDistantion = Tex.groundBlock.getHeight();
+            movingDistantion = 30 * Tex.y;
             speedVector.add(0, -1f * getSpeedConst() * Tex.y);
             setMoving(true);
         }
@@ -155,7 +155,7 @@ public abstract class APlayer implements IPlayer {
 
     public void goLeft() {
         if (!isMoving()) {
-            movingDistantion = Tex.groundBlock.getWidth();
+            movingDistantion = 30 * Tex.x;
             speedVector.add(-1 * getSpeedConst() * Tex.x, 0);
             setMoving(true);
         }
@@ -163,7 +163,7 @@ public abstract class APlayer implements IPlayer {
 
     public void goRight() {
         if (!isMoving()) {
-            movingDistantion = Tex.groundBlock.getWidth();
+            movingDistantion = 30 * Tex.x;
             speedVector.add(1 * getSpeedConst() * Tex.x, 0);
             setMoving(true);
         }

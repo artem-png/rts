@@ -29,7 +29,7 @@ public class Tex {
         if (x > y) {
             y = x;
         }
-        groundBlock = generateSprite("blockGround.png", 30 * Tex.x, 30 * Tex.y);
+        groundBlock = generateSprite("blockGround.png", 37.8f * Tex.x, 37.8f * Tex.y);
         normalPlayer = generateSprite("normalPlayer.png", 30 * Tex.x, 30 * Tex.y);
         digButton = generateSprite("digButton.png", 90 * Tex.x, 90 * Tex.y);
         acceptButton = generateSprite("accept.png", 90 * Tex.x, 90 * Tex.y);

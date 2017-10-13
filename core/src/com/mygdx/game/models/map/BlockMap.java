@@ -30,7 +30,7 @@ public class BlockMap implements IMap {
             for (int j = 0; j < sizeY; j++) {
                 GroundBlock groundBlock = new GroundBlock();
                 groundBlock.setHp(3);
-                groundBlock.setPosition(new Vector2(i * Tex.groundBlock.getWidth(), j * Tex.groundBlock.getHeight()));
+                groundBlock.setPosition(new Vector2(i * 30 * Tex.x, j * 30 * Tex.y));
                 blocks[i][j] = groundBlock;
                 avaliableMap[i][j] = -5;
             }
@@ -62,10 +62,10 @@ public class BlockMap implements IMap {
 
     public void act(SpriteBatch batch) {
         Vector3 xy = GameLayout.camera.unproject(new Vector3(0, Gdx.graphics.getHeight(), 0));
-        float x = xy.x - Tex.groundBlock.getWidth() * 3f * GameLayout.camera.zoom;
-        float y = xy.y - Tex.groundBlock.getHeight() * 3f * GameLayout.camera.zoom;
-        float w = GameLayout.camera.viewportWidth * GameLayout.camera.zoom + Tex.groundBlock.getWidth() * 6f * GameLayout.camera.zoom;
-        float h = GameLayout.camera.viewportHeight * GameLayout.camera.zoom + Tex.groundBlock.getHeight() * 6f * GameLayout.camera.zoom;
+        float x = xy.x - 30 * Tex.x * 3f * GameLayout.camera.zoom;
+        float y = xy.y - 30 * Tex.y * 3f * GameLayout.camera.zoom;
+        float w = GameLayout.camera.viewportWidth * GameLayout.camera.zoom + 30 * Tex.x * 6f * GameLayout.camera.zoom;
+        float h = GameLayout.camera.viewportHeight * GameLayout.camera.zoom + 30 * Tex.y * 6f * GameLayout.camera.zoom;
 
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {

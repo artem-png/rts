@@ -22,10 +22,10 @@ public class PlayerMap implements IMap {
 
     public void act(SpriteBatch batch) {
         Vector3 xy = GameLayout.camera.unproject(new Vector3(0, Gdx.graphics.getHeight(), 0));
-        float x = xy.x - Tex.groundBlock.getWidth() * 3f * GameLayout.camera.zoom;
-        float y = xy.y - Tex.groundBlock.getHeight() * 3f * GameLayout.camera.zoom;
-        float w = GameLayout.camera.viewportWidth * GameLayout.camera.zoom + Tex.groundBlock.getWidth() * 6f * GameLayout.camera.zoom;
-        float h = GameLayout.camera.viewportHeight * GameLayout.camera.zoom + Tex.groundBlock.getHeight() * 6f * GameLayout.camera.zoom;
+        float x = xy.x - 30 * Tex.x * 3f * GameLayout.camera.zoom;
+        float y = xy.y - 30 * Tex.y * 3f * GameLayout.camera.zoom;
+        float w = GameLayout.camera.viewportWidth * GameLayout.camera.zoom + 30 * Tex.x * 6f * GameLayout.camera.zoom;
+        float h = GameLayout.camera.viewportHeight * GameLayout.camera.zoom + 30 * Tex.y * 6f * GameLayout.camera.zoom;
 
 
         for (int i = 0; i < players.size(); i++) {
