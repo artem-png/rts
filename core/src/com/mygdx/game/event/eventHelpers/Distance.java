@@ -4,11 +4,19 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.models.map.BlockMap;
 import com.mygdx.game.models.map.MapHelper;
 
+import java.util.Vector;
+
 public class Distance {
 
     public static boolean isReady = false;
+    private static Vector<Vector2> vector2s;
+    private static Vector<Vector2> vector2sHelp;
+
 
     public static int getDistance(Vector2 gnomPosition, Vector2 cellPosition) {
+
+        vector2s = new Vector<Vector2>();
+        vector2sHelp = new Vector<Vector2>();
         if (cellPosition.x == gnomPosition.x) {
             if (cellPosition.y - gnomPosition.y == 1) {
                 return 0;
@@ -27,16 +35,18 @@ public class Distance {
         map[(int) gnomPosition.x][(int) gnomPosition.y] = -1;
         map[(int) cellPosition.x][(int) cellPosition.y] = -10;
         map = fillAround(map, (int) gnomPosition.x, (int) gnomPosition.y, 1);
+        vector2s.addAll(vector2sHelp);
+        vector2sHelp.clear();
         int a = 1;
-        while (!isReady) {
-            isReady = true;
-            for (int j = 0; j < BlockMap.sizeX; j++) {
-                for (int i = 0; i < BlockMap.sizeY; i++) {
-                    if (map[j][i] == a) {
-                        map = fillAround(map, j, i, a + 1);
-                    }
+        while (vector2s.size() > 0) {
+            for (int i = 0; i < vector2s.size(); i++) {
+                if (map[(int) vector2s.get(i).x][(int) vector2s.get(i).y] == a) {
+                    map = fillAround(map, (int) vector2s.get(i).x, (int) vector2s.get(i).y, a + 1);
                 }
             }
+            vector2s.clear();
+            vector2s.addAll(vector2sHelp);
+            vector2sHelp.clear();
             a++;
         }
         return getCoordMinimum(map, (int) cellPosition.x, (int) cellPosition.y);
@@ -47,24 +57,28 @@ public class Distance {
         int mapsizey = BlockMap.sizeY;
         if (x - 1 >= 0) {
             if (map[x - 1][y] > number || map[x - 1][y] == 0) {
+                vector2sHelp.add(new Vector2(x - 1, y));
                 map[x - 1][y] = number;
                 isReady = false;
             }
         }
         if (x + 1 < mapsizex) {
             if (map[x + 1][y] > number || map[x + 1][y] == 0) {
+                vector2sHelp.add(new Vector2(x + 1, y));
                 map[x + 1][y] = number;
                 isReady = false;
             }
         }
         if (y - 1 >= 0) {
             if (map[x][y - 1] > number || map[x][y - 1] == 0) {
+                vector2sHelp.add(new Vector2(x, y - 1));
                 map[x][y - 1] = number;
                 isReady = false;
             }
         }
         if (y + 1 < mapsizey) {
             if (map[x][y + 1] > number || map[x][y + 1] == 0) {
+                vector2sHelp.add(new Vector2(x, y + 1));
                 map[x][y + 1] = number;
                 isReady = false;
             }

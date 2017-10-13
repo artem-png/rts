@@ -140,7 +140,7 @@ public abstract class APlayer implements IPlayer {
     public void goTop() {
         if (!isMoving()) {
             movingDistantion = Tex.groundBlock.getHeight();
-            speedVector.add(0, 0.4f * getSpeedConst() * Tex.y);
+            speedVector.add(0, 1f * getSpeedConst() * Tex.y);
             setMoving(true);
         }
     }
@@ -148,7 +148,7 @@ public abstract class APlayer implements IPlayer {
     public void goDown() {
         if (!isMoving()) {
             movingDistantion = Tex.groundBlock.getHeight();
-            speedVector.add(0, -0.4f * getSpeedConst() * Tex.y);
+            speedVector.add(0, -1f * getSpeedConst() * Tex.y);
             setMoving(true);
         }
     }

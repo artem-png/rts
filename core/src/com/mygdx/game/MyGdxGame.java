@@ -19,7 +19,7 @@ import com.mygdx.game.Layout.MenuLayout;
 import java.util.Locale;
 
 public class MyGdxGame extends ApplicationAdapter {
-	SpriteBatch batch;
+	public static SpriteBatch batch;
 	public static Tex tex;
 	public static Config config;
 	public static LayoutManager layoutManager;
@@ -36,14 +36,14 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void render () {
 		long start = System.nanoTime();
-		Gdx.gl.glClearColor(30/256f, 30/256f, 30/256f, 1);
+		//Gdx.gl.glClearColor(30/256f, 30/256f, 30/256f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		layoutManager.render(batch);
 		batch.end();
 		long finish = System.nanoTime();
-		long timeConsumedMillis = (finish - start) / 1000000;
-		//System.out.println(timeConsumedMillis);
+		long timeConsumedMillis = (finish - start) / 100000;
+		System.out.println("total: " + timeConsumedMillis + " ");
 	}
 
 	@Override

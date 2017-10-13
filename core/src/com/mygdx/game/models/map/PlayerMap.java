@@ -3,6 +3,7 @@ package com.mygdx.game.models.map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Config.Tex;
 import com.mygdx.game.Layout.GameLayout;
 import com.mygdx.game.models.player.APlayer;
@@ -20,10 +21,12 @@ public class PlayerMap implements IMap {
     }
 
     public void act(SpriteBatch batch) {
-        float x = (GameLayout.camera.position.x - (Gdx.graphics.getWidth() / (2f / (float) Math.sqrt((double) Tex.x))) * GameLayout.camera.zoom);
-        float y = (GameLayout.camera.position.y - (Gdx.graphics.getHeight() / (2f / (float) Math.sqrt((double) Tex.y))) * GameLayout.camera.zoom);
-        float w = GameLayout.camera.viewportWidth * GameLayout.camera.zoom + Tex.groundBlock.getWidth() * 12f;
-        float h = GameLayout.camera.viewportHeight * GameLayout.camera.zoom + Tex.groundBlock.getHeight() * 12f;
+        Vector3 xy = GameLayout.camera.unproject(new Vector3(0, Gdx.graphics.getHeight(), 0));
+        float x = xy.x - Tex.groundBlock.getWidth() * 3f * GameLayout.camera.zoom;
+        float y = xy.y - Tex.groundBlock.getHeight() * 3f * GameLayout.camera.zoom;
+        float w = GameLayout.camera.viewportWidth * GameLayout.camera.zoom + Tex.groundBlock.getWidth() * 6f * GameLayout.camera.zoom;
+        float h = GameLayout.camera.viewportHeight * GameLayout.camera.zoom + Tex.groundBlock.getHeight() * 6f * GameLayout.camera.zoom;
+
 
         for (int i = 0; i < players.size(); i++) {
             Vector2 position = players.get(i).getPosition();

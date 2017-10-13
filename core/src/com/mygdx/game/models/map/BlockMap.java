@@ -3,6 +3,7 @@ package com.mygdx.game.models.map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Config.Tex;
 import com.mygdx.game.Layout.GameLayout;
 import com.mygdx.game.models.blocks.ABlock;
@@ -16,6 +17,11 @@ public class BlockMap implements IMap {
     public ABlock[][] blocks;
     public static int sizeX = 200;
     public static int sizeY = 200;
+
+    float deltaX;
+    float deltaY;
+
+    public int[][] avaliableMap;
 
     public BlockMap() {
         blocks = new ABlock[sizeX][sizeY];
@@ -46,25 +52,26 @@ public class BlockMap implements IMap {
         blocks[8][5] = null;
         blocks[8][4] = null;
         blocks[8][3] = null;
+        avaliableMap = generateAvaliableMap();
 
+        deltaX = (Gdx.graphics.getWidth() / (2f / (float) Math.sqrt((double) Tex.x)));
+        deltaY = (Gdx.graphics.getHeight() / (2f / (float) Math.sqrt((double) Tex.y)));
     }
 
     public void act(SpriteBatch batch) {
-        float x = (GameLayout.camera.position.x - (Gdx.graphics.getWidth() / (2f / (float) Math.sqrt((double) Tex.x))) * GameLayout.camera.zoom);
-        float y = (GameLayout.camera.position.y - (Gdx.graphics.getHeight() / (2f / (float) Math.sqrt((double) Tex.y))) * GameLayout.camera.zoom);
-        float w = GameLayout.camera.viewportWidth * GameLayout.camera.zoom + Tex.groundBlock.getWidth() * 12f * GameLayout.camera.zoom;
-        float h = GameLayout.camera.viewportHeight * GameLayout.camera.zoom + Tex.groundBlock.getHeight() * 12f * GameLayout.camera.zoom;
+        Vector3 xy = GameLayout.camera.unproject(new Vector3(0, Gdx.graphics.getHeight(), 0));
+        float x = xy.x - Tex.groundBlock.getWidth() * 3f * GameLayout.camera.zoom;
+        float y = xy.y - Tex.groundBlock.getHeight() * 3f * GameLayout.camera.zoom;
+        float w = GameLayout.camera.viewportWidth * GameLayout.camera.zoom + Tex.groundBlock.getWidth() * 6f * GameLayout.camera.zoom;
+        float h = GameLayout.camera.viewportHeight * GameLayout.camera.zoom + Tex.groundBlock.getHeight() * 6f * GameLayout.camera.zoom;
 
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
                 if (blocks[i][j] == null) {
-                    float bx = i * 30 * Tex.x;
-                    float by = j * Tex.y * 30;
-                    if (bx > x && bx < x + w && by > y && by < y + h) {
-                        batch.draw(Tex.dug_tonnel_1, bx, by, Tex.dug_tonnel_1.getWidth(), Tex.dug_tonnel_1.getHeight());
-                    }
+
                 } else if (blocks[i][j].getHp() < 0) {
                     blocks[i][j] = null;
+
                 } else {
                     Vector2 position = blocks[i][j].getPosition();
                     if (position.x > x && position.x < x + w && position.y > y && position.y < y + h) {
@@ -90,7 +97,7 @@ public class BlockMap implements IMap {
         return this.blocks[x][y];
     }
 
-    public int[][] getAvaliableMap() {
+    public int[][] generateAvaliableMap() {
         int[][] array = new int[sizeX][sizeY];
 
         for (int i = 0; i < sizeX; i++) {
@@ -106,5 +113,9 @@ public class BlockMap implements IMap {
         }
 
         return array;
+    }
+
+    public int[][] getAvaliableMap() {
+        return generateAvaliableMap();
     }
 }

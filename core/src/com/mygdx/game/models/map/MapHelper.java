@@ -3,7 +3,6 @@ package com.mygdx.game.models.map;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.event.events.IEvent;
 import com.mygdx.game.event.events.TonnelEvent;
-import com.mygdx.game.models.map.build.TunnelMap;
 import com.mygdx.game.process.GameProcess;
 
 import java.util.Vector;
@@ -40,9 +39,8 @@ public class MapHelper {
     public static void printMap(int[][] map) {
         for (int i = 0; i < BlockMap.sizeX; i++) {
             for (int j = BlockMap.sizeY - 1; j > 0; j--) {
-                System.out.print(map[j][i] + "  ");
+                System.out.print(map[j][i] + " ");
             }
-            System.out.println();
             System.out.println();
 
         }

@@ -6,6 +6,8 @@ import com.mygdx.game.models.map.BlockMap;
 import com.mygdx.game.models.map.MapHelper;
 import com.mygdx.game.models.player.APlayer;
 
+import java.util.Vector;
+
 /**
  * Created by artem on 10/11/17.
  */
@@ -15,8 +17,12 @@ public class Movement {
     public Vector2 standPosition;
     public boolean isReady;
     public boolean isVolnaReady = false;
+    private Vector<Vector2> vector2s;
+    private static Vector<Vector2> vector2sHelp;
+
 
     public Movement() {
+        vector2s = new Vector<Vector2>();
     }
 
     public void setPlayer(APlayer player) {
@@ -56,19 +62,26 @@ public class Movement {
     }
 
     public void volna(int[][] map) {
+        vector2sHelp = new Vector<Vector2>();
+
         map[(int) player.getXYPosition().x][(int) player.getXYPosition().y] = -1;
         map[(int) standPosition.x][(int) standPosition.y] = -10;
         map = fillAround(map, (int) player.getXYPosition().x, (int) player.getXYPosition().y, 1);
+        vector2s.addAll(vector2sHelp);
+        vector2sHelp.clear();
+
         int a = 1;
-        while (!isVolnaReady) {
+        while (vector2s.size() > 0) {
             isVolnaReady = true;
-            for (int j = 0; j < BlockMap.sizeX; j++) {
-                for (int i = 0; i < BlockMap.sizeY; i++) {
-                    if (map[j][i] == a) {
-                        map = fillAround(map, j, i, a + 1);
-                    }
+
+            for (int i = 0; i < vector2s.size(); i++) {
+                if (map[(int) vector2s.get(i).x][(int) vector2s.get(i).y] == a) {
+                    map = fillAround(map, (int) vector2s.get(i).x, (int) vector2s.get(i).y, a + 1);
                 }
             }
+            vector2s.clear();
+            vector2s.addAll(vector2sHelp);
+            vector2sHelp.clear();
             a++;
         }
 
@@ -125,24 +138,29 @@ public class Movement {
         int mapsizey = BlockMap.sizeY;
         if (x - 1 >= 0) {
             if (map[x - 1][y] > number || map[x - 1][y] == 0) {
+                vector2sHelp.add(new Vector2(x - 1, y));
                 map[x - 1][y] = number;
                 isVolnaReady = false;
             }
         }
         if (x + 1 < mapsizex) {
             if (map[x + 1][y] > number || map[x + 1][y] == 0) {
+                vector2sHelp.add(new Vector2(x + 1, y));
                 map[x + 1][y] = number;
                 isVolnaReady = false;
             }
         }
         if (y - 1 >= 0) {
             if (map[x][y - 1] > number || map[x][y - 1] == 0) {
+                vector2sHelp.add(new Vector2(x, y - 1));
                 map[x][y - 1] = number;
                 isVolnaReady = false;
             }
         }
         if (y + 1 < mapsizey) {
             if (map[x][y + 1] > number || map[x][y + 1] == 0) {
+                vector2sHelp.add(new Vector2(x, y + 1));
+
                 map[x][y + 1] = number;
                 isVolnaReady = false;
             }
@@ -151,7 +169,7 @@ public class Movement {
         return map;
     }
 
-    public Vector2 getCoordMinimum(int[][]map, int x, int y) {
+    public Vector2 getCoordMinimum(int[][] map, int x, int y) {
         int mapsizex = BlockMap.sizeX;
         int mapsizey = BlockMap.sizeY;
         int min = 10000;

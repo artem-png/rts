@@ -20,6 +20,7 @@ public class Tex {
     public static Sprite marker_tonnel_3;
     public static Sprite dug_tonnel_1;
     public static Sprite acceptButton;
+    public static Sprite bg;
 
     public Tex() {
         if (y > x) {
@@ -36,6 +37,7 @@ public class Tex {
         marker_tonnel_2 = generateSprite("marker_tonnel_1.png", 30 * Tex.x, 30 * Tex.y);
         marker_tonnel_3 = generateSprite("marker_tonnel_3.png", 30 * Tex.x, 30 * Tex.y);
         dug_tonnel_1 = generateSprite("dug_tonnel_1.png", 30 * Tex.x, 30 * Tex.y);
+        bg = generateSprite("bg.png", 1000 * Tex.x, 1000 * Tex.y);
 
     }
 

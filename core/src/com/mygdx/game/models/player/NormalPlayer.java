@@ -17,7 +17,7 @@ public class NormalPlayer extends APlayer {
         this.actualPosition = actualPosition;
         this.speedConst = 2f;
         this.speedVector = new Vector2(0, 0);
-        damage = 2;
+        damage = 3;
     }
 
     @Override

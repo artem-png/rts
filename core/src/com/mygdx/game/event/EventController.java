@@ -47,31 +47,33 @@ public class EventController {
 
     private void addEventToPlayers() {
         if (freeEvents.size() > 0) {
+            IEvent event = freeEvents.get(0);
             Vector<APlayer> freePlayers = new Vector<APlayer>();
             for (int i = 0; i < GameProcess.playerMap.getAll().size(); i++) {
-                if (freeEvents.size() > 0 && !GameProcess.playerMap.getAll().get(i).isBusy()) {
-                    freePlayers.add(GameProcess.playerMap.getAll().get(i));
+                APlayer player = GameProcess.playerMap.getAll().get(i);
+                if (freeEvents.size() > 0 && !player.isBusy()) {
+                    freePlayers.add(player);
                 }
             }
             if (freePlayers.size() == 0) {
                 return;
             }
             if (freePlayers.size() == 1) {
-                freeEvents.get(0).setPlayer(freePlayers.get(0));
-                playerEvents.add(freeEvents.get(0));
+                event.setPlayer(freePlayers.get(0));
+                playerEvents.add(event);
                 freeEvents.remove(0);
             } else {
                 int min = 100000;
                 APlayer player = null;
                 for (int i = 0; i < freePlayers.size(); i ++) {
-                    int distance = Distance.getDistance(freePlayers.get(i).actualPosition, freeEvents.get(0).getCellForDistance());
+                    int distance = Distance.getDistance(freePlayers.get(i).actualPosition, event.getCellForDistance());
                     if (distance < min) {
                         min = distance;
                         player = freePlayers.get(i);
                     }
                 }
-                freeEvents.get(0).setPlayer(player);
-                playerEvents.add(freeEvents.get(0));
+                event.setPlayer(player);
+                playerEvents.add(event);
                 freeEvents.remove(0);
             }
         }
