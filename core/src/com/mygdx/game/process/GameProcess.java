@@ -1,5 +1,7 @@
 package com.mygdx.game.process;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.components.DigPanelGameProcess;
@@ -63,10 +65,23 @@ public class GameProcess implements IProcess{
     }
 
     public void act(SpriteBatch batch) {
+        long start = System.nanoTime();
         eventController.act(batch);
-
+        long finish = System.nanoTime();
+        long timeConsumedMillis = (finish - start) / 100000;
+        //System.out.println(" event " + timeConsumedMillis);
+        start = System.nanoTime();
         landMap.act(batch);
+        finish = System.nanoTime();
+        timeConsumedMillis = (finish - start) / 100000;
+        //System.out.println(" land " + timeConsumedMillis);
+
+        start = System.nanoTime();
         playerMap.act(batch);
+        finish = System.nanoTime();
+        timeConsumedMillis = (finish - start) / 100000;
+        //System.out.println(" playerMap " + timeConsumedMillis);
+
         batch.end();
         menuBatch.begin();
         digPanelGameProcess.act(menuBatch);

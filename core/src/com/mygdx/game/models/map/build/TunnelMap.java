@@ -38,11 +38,6 @@ public class TunnelMap implements IMap {
 
 
     @Override
-    public void act(SpriteBatch batch, int i, int j, float x, float y, float w, float h) {
-
-    }
-
-    @Override
     public void act(SpriteBatch batch) {
         for (int i = 0; i < BlockMap.sizeX; i++) {
             for (int j = 0; j < BlockMap.sizeY; j++) {

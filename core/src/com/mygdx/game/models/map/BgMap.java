@@ -16,11 +16,9 @@ import com.mygdx.game.process.GameProcess;
 
 public class BgMap implements IMap {
 
-    public void act(SpriteBatch batch, int i, int j, float x, float y, float w, float h) {
+    public void act(SpriteBatch batch, int i, int j) {
         if (GameProcess.blockMap.blocks[i][j] == null || GameProcess.blockMap.blocks[i][j] instanceof Cave) {
-            if (i * 30 * Tex.x > x && i * 30 * Tex.x < x + w && j * 30 * Tex.y > y && j * 30 * Tex.y < y + h) {
-                batch.draw(Tex.bg, i * 30 * Tex.x, j * 30 * Tex.y, 30 * Tex.x, 30 * Tex.y);
-            }
+            batch.draw(Tex.bg, i * 30 * Tex.x, j * 30 * Tex.y, 30 * Tex.x, 30 * Tex.y);
         }
     }
 

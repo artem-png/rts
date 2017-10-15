@@ -25,10 +25,10 @@ public class DigPanelGameProcess {
         closeButton = new Button(Tex.button_1_2, new Vector2(5 * Tex.x, 5 * Tex.y));
         digButton = new Button(Tex.digButton, new Vector2(110 * Tex.x, 5 * Tex.y));
         caveButton = new Button(Tex.caveButton, new Vector2(215 * Tex.x, 5 * Tex.y));
-        digButton.setDelay(5);
-        showButton.setDelay(5);
-        closeButton.setDelay(5);
-        caveButton.setDelay(5);
+        digButton.setDelay(0);
+        showButton.setDelay(0);
+        closeButton.setDelay(0);
+        caveButton.setDelay(0);
     }
 
     public void act(SpriteBatch batch) {
@@ -49,7 +49,7 @@ public class DigPanelGameProcess {
                 isShow = false;
                 isClose = true;
                 closeButton.isActivated = false;
-                closeButton.setDelay(15);
+                closeButton.setDelay(0);
             }
         } else if (isClose) {
             closeButton.input();
@@ -59,23 +59,23 @@ public class DigPanelGameProcess {
                 isShow = true;
                 isClose = false;
                 showButton.isActivated = false;
-                showButton.setDelay(15);
+                showButton.setDelay(0);
                 digButton.isActivated = false;
-                digButton.setDelay(15);
+                digButton.setDelay(0);
                 GameLayout.addProcess(new TunnelProcess(GameProcess.landMap));
             } else if (caveButton.isActivated) {
                 isShow = true;
                 isClose = false;
                 showButton.isActivated = false;
-                showButton.setDelay(15);
+                showButton.setDelay(0);
                 caveButton.isActivated = false;
-                caveButton.setDelay(15);
+                caveButton.setDelay(0);
                 GameLayout.addProcess(new CaveProcess(GameProcess.landMap));
             } else if (closeButton.isActivated) {
                 isShow = true;
                 isClose = false;
                 showButton.isActivated = false;
-                showButton.setDelay(15);
+                showButton.setDelay(0);
             }
         }
     }

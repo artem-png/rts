@@ -38,8 +38,8 @@ public class CaveProcess implements IProcess {
         back = new Button(Tex.backButton, new Vector2(5 * Tex.x, 5 * Tex.y));
         cave1 = new Button(Tex.cave3x5Button, new Vector2(115 * Tex.x, 5 * Tex.y));
         cave1active = new Button(Tex.cave3x5Button_active, new Vector2(115 * Tex.x, 5 * Tex.y));
-        cave1.setDelay(5);
-        accept.setDelay(5);
+        cave1.setDelay(0);
+        accept.setDelay(0);
         GameProcess.blockMap.generateAvaliableMap();
         avaliableMap = MapHelper.getAvaliableMapToTunnel();
         bannedSectors = MapHelper.getAlreadyBuldingCaves();
