@@ -20,7 +20,10 @@ import java.util.Vector;
 public class TunnelMap implements IMap {
     int[][] sectors;
     int[][] choosenSectors;
+    int[][] bannedSectors;
     int[][] alreadyBuild;
+
+    int afterRemoveDelay = 0;
 
     Vector2 firstChoosen;
     Vector2 standCell;
@@ -28,10 +31,16 @@ public class TunnelMap implements IMap {
     public TunnelMap() {
         sectors = new int[BlockMap.sizeX][BlockMap.sizeY];
         choosenSectors = new int[BlockMap.sizeX][BlockMap.sizeY];
+        bannedSectors = MapHelper.getAlreadyBuldingCaves();
         alreadyBuild = MapHelper.getAlreadyBuldingCells();
         init();
     }
 
+
+    @Override
+    public void act(SpriteBatch batch, int i, int j, float x, float y, float w, float h) {
+
+    }
 
     @Override
     public void act(SpriteBatch batch) {
@@ -83,6 +92,9 @@ public class TunnelMap implements IMap {
                         );
                     }
                 }
+                if (bannedSectors[i][j] == 6) {
+                    batch.draw(Tex.bannedSector, i * 30 * Tex.x, j * 30 * Tex.y, Tex.bannedSector.getWidth(), Tex.bannedSector.getHeight());
+                }
             }
         }
     }
@@ -93,16 +105,16 @@ public class TunnelMap implements IMap {
         for (int i = 0; i < BlockMap.sizeX; i++) {
             for (int j = 0; j < BlockMap.sizeY; j++) {
                 if (avaliableMap[i][j] == 0) {
-                    if (!nechetAndAvaliable(i - 1, j) && avaliableMap[i - 1][j] == -5) {
+                    if (!nechetAndAvaliable(i - 1, j) && avaliableMap[i - 1][j] == -5 && bannedSectors[i - 1][j] != 6) {
                         sectors[i - 1][j] = 5;
                     }
-                    if (!nechetAndAvaliable(i + 1, j) && avaliableMap[i + 1][j] == -5) {
+                    if (!nechetAndAvaliable(i + 1, j) && avaliableMap[i + 1][j] == -5 && bannedSectors[i + 1][j] != 6) {
                         sectors[i + 1][j] = 5;
                     }
-                    if (!nechetAndAvaliable(i, j + 1) && avaliableMap[i][j + 1] == -5) {
+                    if (!nechetAndAvaliable(i, j + 1) && avaliableMap[i][j + 1] == -5 && bannedSectors[i][j + 1] != 6) {
                         sectors[i][j + 1] = 5;
                     }
-                    if (!nechetAndAvaliable(i, j - 1) && avaliableMap[i][j - 1] == -5) {
+                    if (!nechetAndAvaliable(i, j - 1) && avaliableMap[i][j - 1] == -5 && bannedSectors[i][j - 1] != 6) {
                         sectors[i][j - 1] = 5;
                     }
                 }
@@ -115,16 +127,16 @@ public class TunnelMap implements IMap {
         int i = (int) vector2.x;
         int j = (int) vector2.y;
         int[][] avaliableMap = MapHelper.getAvaliableMapToTunnel();
-        if (!nechetAndAvaliable(i - 1, j) && avaliableMap[i - 1][j] == -5 && choosenSectors[i - 1][j] == 0) {
+        if (!nechetAndAvaliable(i - 1, j) && avaliableMap[i - 1][j] == -5 && choosenSectors[i - 1][j] == 0 && bannedSectors[i - 1][j] != 6) {
             sectors[i - 1][j] = 5;
         }
-        if (!nechetAndAvaliable(i + 1, j) && avaliableMap[i + 1][j] == -5 && choosenSectors[i + 1][j] == 0) {
+        if (!nechetAndAvaliable(i + 1, j) && avaliableMap[i + 1][j] == -5 && choosenSectors[i + 1][j] == 0 && bannedSectors[i + 1][j] != 6) {
             sectors[i + 1][j] = 5;
         }
-        if (!nechetAndAvaliable(i, j + 1) && avaliableMap[i][j + 1] == -5 && choosenSectors[i][j + 1] == 0) {
+        if (!nechetAndAvaliable(i, j + 1) && avaliableMap[i][j + 1] == -5 && choosenSectors[i][j + 1] == 0 && bannedSectors[i][j + 1] != 6) {
             sectors[i][j + 1] = 5;
         }
-        if (!nechetAndAvaliable(i, j - 1) && avaliableMap[i][j - 1] == -5 && choosenSectors[i][j - 1] == 0) {
+        if (!nechetAndAvaliable(i, j - 1) && avaliableMap[i][j - 1] == -5 && choosenSectors[i][j - 1] == 0 && bannedSectors[i][j - 1] != 6) {
             sectors[i][j - 1] = 5;
         }
     }
@@ -288,6 +300,10 @@ public class TunnelMap implements IMap {
     public boolean add(Object object) {
         Vector2 vector2 = (Vector2) object;
         if (sectors[(int) vector2.x][(int) vector2.y] == 5) {
+            if (afterRemoveDelay > 0) {
+                afterRemoveDelay--;
+                return false;
+            }
             choosenSectors[(int) vector2.x][(int) vector2.y] = 5;
             if (choosenCount() == 1) {
                 firstChoosen = vector2;
@@ -297,6 +313,7 @@ public class TunnelMap implements IMap {
             return true;
 
         } else if (choosenSectors[(int) vector2.x][(int) vector2.y] == 5 && Gdx.input.justTouched()) {
+            afterRemoveDelay = 5;
             remove(vector2);
             refreshAfterDelete(vector2);
             return true;

@@ -8,7 +8,6 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Config.Tex;
 import com.mygdx.game.Layout.input.GameInputProcessor;
-import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.process.GameProcess;
 import com.mygdx.game.process.IProcess;
 
@@ -38,7 +37,6 @@ public class GameLayout implements ILayout {
 
     @Override
     public void render(SpriteBatch batch) {
-//        batch.draw(Tex.bg, 0 * Tex.x, 0 * Tex.y, 2000 * Tex.x, 2000 * Tex.y);
 //        long start = System.nanoTime();
         batch.setProjectionMatrix(camera.combined);
         camera.update();

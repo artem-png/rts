@@ -3,10 +3,9 @@ package com.mygdx.game.models.map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Config.Tex;
-import com.mygdx.game.Layout.GameLayout;
 import com.mygdx.game.models.blocks.ABlock;
+import com.mygdx.game.models.blocks.Cave;
 import com.mygdx.game.models.blocks.GroundBlock;
 
 /**
@@ -15,8 +14,8 @@ import com.mygdx.game.models.blocks.GroundBlock;
 
 public class BlockMap implements IMap {
     public ABlock[][] blocks;
-    public static int sizeX = 300;
-    public static int sizeY = 300;
+    public static int sizeX = 200;
+    public static int sizeY = 200;
 
     float deltaX;
     float deltaY;
@@ -28,6 +27,7 @@ public class BlockMap implements IMap {
         avaliableMap = new int[sizeX][sizeY];
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
+                if (j == 10) continue;
                 GroundBlock groundBlock = new GroundBlock();
                 groundBlock.setHp(3);
                 groundBlock.setPosition(new Vector2(i * 30 * Tex.x, j * 30 * Tex.y));
@@ -35,54 +35,40 @@ public class BlockMap implements IMap {
                 avaliableMap[i][j] = -5;
             }
         }
-
-        blocks[10][10] = null;
-        blocks[9][10] = null;
-        blocks[8][10] = null;
-        blocks[7][10] = null;
-        blocks[10][9] = null;
-        blocks[10][8] = null;
-        blocks[10][7] = null;
-        blocks[10][6] = null;
-        blocks[10][5] = null;
-        blocks[10][4] = null;
-        blocks[10][3] = null;
-        blocks[8][9] = null;
-        blocks[8][8] = null;
-        blocks[8][7] = null;
-        blocks[8][6] = null;
-        blocks[8][5] = null;
-        blocks[8][4] = null;
-        blocks[8][3] = null;
         generateAvaliableMap();
 
         deltaX = (Gdx.graphics.getWidth() / (2f / (float) Math.sqrt((double) Tex.x)));
         deltaY = (Gdx.graphics.getHeight() / (2f / (float) Math.sqrt((double) Tex.y)));
     }
 
-    public void act(SpriteBatch batch) {
-        Vector3 xy = GameLayout.camera.unproject(new Vector3(0, Gdx.graphics.getHeight(), 0));
-        float x = xy.x - 30 * Tex.x * 3f * GameLayout.camera.zoom;
-        float y = xy.y - 30 * Tex.y * 3f * GameLayout.camera.zoom;
-        float w = GameLayout.camera.viewportWidth * GameLayout.camera.zoom + 30 * Tex.x * 6f * GameLayout.camera.zoom;
-        float h = GameLayout.camera.viewportHeight * GameLayout.camera.zoom + 30 * Tex.y * 6f * GameLayout.camera.zoom;
+    public void act(SpriteBatch batch, int i, int j, float x, float y, float w, float h) {
+        if (blocks[i][j] == null) {
 
-        for (int i = 0; i < sizeX; i++) {
-            for (int j = 0; j < sizeY; j++) {
-                if (blocks[i][j] == null) {
-
-                } else if (blocks[i][j].getHp() < 0) {
-                    blocks[i][j] = null;
-                    generateAvaliableMap();
-                } else {
-                    Vector2 position = blocks[i][j].getPosition();
-                    if (position.x > x && position.x < x + w && position.y > y && position.y < y + h) {
-                        blocks[i][j].render(batch);
-                    }
-                    blocks[i][j].act(batch);
+        } else if (blocks[i][j].getHp() < 0) {
+            blocks[i][j] = null;
+            generateAvaliableMap();
+        } else {
+            Vector2 position = blocks[i][j].getPosition();
+            if (blocks[i][j] instanceof Cave) {
+                float xc = x - 30 * 12 * Tex.x;
+                float yc = y - 30 * 12 * Tex.y;
+                float hc = h + 30 * 12 * Tex.x;
+                float wc = w + 30 * 12 * Tex.y;
+                if (position.x > xc && position.x < xc + wc && position.y > yc && position.y < yc + hc) {
+                    blocks[i][j].render(batch);
+                }
+            } else {
+                if (position.x > x && position.x < x + w && position.y > y && position.y < y + h) {
+                    blocks[i][j].render(batch);
                 }
             }
+            blocks[i][j].act(batch);
         }
+    }
+
+    @Override
+    public void act(SpriteBatch batch) {
+
     }
 
     @Override
@@ -107,10 +93,40 @@ public class BlockMap implements IMap {
             for (int j = 0; j < sizeY; j++) {
                 if (this.blocks[i][j] == null) {
                     avaliableMap[i][j] = 0;
-                } else if (this.blocks[i][j].hasPass) {
-                    avaliableMap[i][j] = 0;
                 } else {
                     avaliableMap[i][j] = -5;
+                }
+            }
+        }
+        for (int i = 0; i < sizeX; i++) {
+            for (int j = 0; j < sizeY; j++) {
+                if (this.blocks[i][j] instanceof Cave) {
+                    Cave cave = (Cave) this.blocks[i][j];
+                    if (cave.type == 1) {
+                        avaliableMap[i][j] = 0;
+                        avaliableMap[i + 1][j] = 0;
+                        avaliableMap[i + 2][j] = 0;
+                        avaliableMap[i + 3][j] = 0;
+                        avaliableMap[i + 4][j] = 0;
+
+                        avaliableMap[i][j + 1] = -99;
+                        avaliableMap[i + 1][j + 1] = -99;
+                        avaliableMap[i + 2][j + 1] = -99;
+                        avaliableMap[i + 3][j + 1] = -99;
+                        avaliableMap[i + 4][j + 1] = -99;
+
+                        avaliableMap[i][j + 2] = -99;
+                        avaliableMap[i + 1][j + 2] = -99;
+                        avaliableMap[i + 2][j + 2] = -99;
+                        avaliableMap[i + 3][j + 2] = -99;
+                        avaliableMap[i + 4][j + 2] = -99;
+
+                        avaliableMap[i][j - 1] = -99;
+                        avaliableMap[i + 1][j - 1] = -99;
+                        avaliableMap[i + 2][j - 1] = -99;
+                        avaliableMap[i + 3][j - 1] = -99;
+                        avaliableMap[i + 4][j - 1] = -99;
+                    }
                 }
             }
         }

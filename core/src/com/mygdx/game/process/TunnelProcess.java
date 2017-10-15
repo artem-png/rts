@@ -11,6 +11,7 @@ import com.mygdx.game.Layout.input.GameInputProcessor;
 import com.mygdx.game.components.Button;
 import com.mygdx.game.event.events.TonnelEvent;
 import com.mygdx.game.models.map.BlockMap;
+import com.mygdx.game.models.map.LandMap;
 import com.mygdx.game.models.map.build.TunnelMap;
 
 import java.util.Vector;
@@ -19,26 +20,30 @@ import java.util.Vector;
  * Created by artem on 10/11/17.
  */
 
-public class BuildProcess implements IProcess {
-    private BlockMap blockMap;
+public class TunnelProcess implements IProcess {
+    public LandMap landMap;
     private TunnelMap tunnelMap;
     private Button accept;
+    private Button backButton;
     private boolean isPressed = false;
 
-    public BuildProcess(BlockMap map) {
-        this.blockMap = map;
+    public TunnelProcess(LandMap map) {
         tunnelMap = new TunnelMap();
-        accept = new Button(Tex.acceptButton, new Vector2(20 * Tex.x, 20 * Tex.y));
+        landMap = map;
+        accept = new Button(Tex.acceptButton, new Vector2(715 * Tex.x, 5 * Tex.y));
+        backButton = new Button(Tex.backButton, new Vector2(5 * Tex.x, 5 * Tex.y));
         accept.setDelay(15);
+        backButton.setDelay(15);
     }
 
     @Override
     public void act(SpriteBatch batch) {
-        blockMap.act(batch);
+        landMap.act(batch);
         tunnelMap.act(batch);
         batch.end();
         GameProcess.menuBatch.begin();
         accept.act(GameProcess.menuBatch);
+        backButton.act(GameProcess.menuBatch);
         GameProcess.menuBatch.end();
         batch.begin();
     }
@@ -62,7 +67,13 @@ public class BuildProcess implements IProcess {
         } else {
             isPressed = false;
         }
+        if (backButton.input()) {
+            GameInputProcessor.isNeed = true;
+            backButton.isActivated = false;
+            GameLayout.removeProcess();
+        }
         if (accept.input()) {
+            GameInputProcessor.isNeed = true;
             accept.isActivated = false;
             Vector<Vector2> vector2s = tunnelMap.generateDataForEvent();
             if (vector2s != null) {

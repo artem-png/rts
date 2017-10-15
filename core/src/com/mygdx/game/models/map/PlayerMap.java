@@ -20,6 +20,11 @@ public class PlayerMap implements IMap {
         players = new Vector<APlayer>();
     }
 
+    @Override
+    public void act(SpriteBatch batch, int i, int j, float x, float y, float w, float h) {
+
+    }
+
     public void act(SpriteBatch batch) {
         Vector3 xy = GameLayout.camera.unproject(new Vector3(0, Gdx.graphics.getHeight(), 0));
         float x = xy.x - 30 * Tex.x * 3f * GameLayout.camera.zoom;

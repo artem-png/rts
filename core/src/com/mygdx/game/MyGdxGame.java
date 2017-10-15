@@ -33,7 +33,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		layoutManager.render(batch);
 		long finish = System.nanoTime();
 		long timeConsumedMillis = (finish - start) / 100000;
-		//System.out.println(timeConsumedMillis);
+		System.out.println(timeConsumedMillis);
 		batch.end();
 	}
 
