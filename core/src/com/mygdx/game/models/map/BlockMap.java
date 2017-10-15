@@ -50,19 +50,36 @@ public class BlockMap implements IMap {
         } else {
             Vector2 position = blocks[i][j].getPosition();
             if (blocks[i][j] instanceof Cave) {
-                float xc = x - 30 * 12 * Tex.x;
-                float yc = y - 30 * 12 * Tex.y;
-                float hc = h + 30 * 12 * Tex.x;
-                float wc = w + 30 * 12 * Tex.y;
-                if (position.x > xc && position.x < xc + wc && position.y > yc && position.y < yc + hc) {
-                    blocks[i][j].render(batch);
-                }
+
             } else {
                 if (position.x > x && position.x < x + w && position.y > y && position.y < y + h) {
                     blocks[i][j].render(batch);
                 }
+                blocks[i][j].act(batch);
             }
-            blocks[i][j].act(batch);
+        }
+    }
+
+    public void actCave(SpriteBatch batch, int i, int j, float x, float y, float w, float h) {
+        if (blocks[i][j] == null) {
+
+        } else if (blocks[i][j].getHp() < 0) {
+            blocks[i][j] = null;
+            generateAvaliableMap();
+        } else {
+            Vector2 position = blocks[i][j].getPosition();
+            if (blocks[i][j] instanceof Cave) {
+                float xc = x - 30 * 12 * Tex.x;
+                float yc = y - 30 * 12 * Tex.y;
+                float hc = h + 30 * 12 * Tex.x;
+                float wc = w + 30 * 12 * Tex.y;
+                if (position.x * 30 * Tex.x > xc && position.x * 30 * Tex.x < xc + wc && position.y * 30 * Tex.y > yc && position.y * 30 * Tex.y < yc + hc) {
+                    blocks[i][j].render(batch);
+                }
+                blocks[i][j].act(batch);
+
+            } else {
+            }
         }
     }
 

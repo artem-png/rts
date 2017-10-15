@@ -29,6 +29,8 @@ public class CaveProcess implements IProcess {
     private int cave = 0;
     private Cave caveObject;
     private int[][] avaliableMap;
+    int[][] bannedSectors;
+
 
     public CaveProcess(LandMap map) {
         landMap = map;
@@ -36,14 +38,15 @@ public class CaveProcess implements IProcess {
         back = new Button(Tex.backButton, new Vector2(5 * Tex.x, 5 * Tex.y));
         cave1 = new Button(Tex.cave3x5Button, new Vector2(115 * Tex.x, 5 * Tex.y));
         cave1active = new Button(Tex.cave3x5Button_active, new Vector2(115 * Tex.x, 5 * Tex.y));
-        cave1.setDelay(15);
-        accept.setDelay(15);
+        cave1.setDelay(5);
+        accept.setDelay(5);
         GameProcess.blockMap.generateAvaliableMap();
         avaliableMap = MapHelper.getAvaliableMapToTunnel();
+        bannedSectors = MapHelper.getAlreadyBuldingCaves();
         int[][] alreadyTunnel = MapHelper.getAlreadyBuldingCells();
         for (int i = 0; i < BlockMap.sizeX; i++) {
             for (int j = BlockMap.sizeY - 1; j > 0; j--) {
-                if (alreadyTunnel[i][j] == 5) {
+                if (alreadyTunnel[i][j] == 5 || bannedSectors[i][j] == 6) {
                     avaliableMap[i][j] = -1;
                 }
             }
@@ -60,7 +63,7 @@ public class CaveProcess implements IProcess {
         for (int i = 0; i < BlockMap.sizeX; i++) {
             for (int j = BlockMap.sizeY - 1; j > 0; j--) {
                 if (avaliableMap[i][j] == -1) {
-                    batch.draw(Tex.marker_tonnel_2, i * Tex.x * 30, j * 30 * Tex.y, Tex.marker_tonnel_1.getWidth(), Tex.marker_tonnel_1.getHeight());
+                    batch.draw(Tex.bannedSector, i * Tex.x * 30, j * 30 * Tex.y, Tex.marker_tonnel_1.getWidth(), Tex.marker_tonnel_1.getHeight());
                 }
             }
         }
@@ -91,12 +94,12 @@ public class CaveProcess implements IProcess {
                 cave = 0;
                 caveObject = null;
                 cave1active.isActivated = false;
-                cave1active.setDelay(15);
+                cave1active.setDelay(5);
             }
         } else {
             if (cave1.input()) {
                 cave1.isActivated = false;
-                cave1.setDelay(15);
+                cave1.setDelay(5);
                 cave = 1;
                 caveObject = new Cave(5, 3);
             }

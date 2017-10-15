@@ -201,16 +201,16 @@ public class TunnelMap implements IMap {
         int i = (int) cell.x;
         int j = (int) cell.y;
         int[][] avaliableMap = MapHelper.getAvaliableMapToTunnel();
-        if (!nechetAndAvaliable(i - 1, j) && avaliableMap[i - 1][j] == -5 && choosenSectors[i - 1][j] == 0) {
+        if (!nechetAndAvaliable(i - 1, j) && avaliableMap[i - 1][j] == -5 && choosenSectors[i - 1][j] == 0 && bannedSectors[i][j - 1] != 6) {
             sectors[i - 1][j] = 5;
         }
-        if (!nechetAndAvaliable(i + 1, j) && avaliableMap[i + 1][j] == -5 && choosenSectors[i + 1][j] == 0) {
+        if (!nechetAndAvaliable(i + 1, j) && avaliableMap[i + 1][j] == -5 && choosenSectors[i + 1][j] == 0 && bannedSectors[i][j - 1] != 6) {
             sectors[i + 1][j] = 5;
         }
-        if (!nechetAndAvaliable(i, j + 1) && avaliableMap[i][j + 1] == -5 && choosenSectors[i][j + 1] == 0) {
+        if (!nechetAndAvaliable(i, j + 1) && avaliableMap[i][j + 1] == -5 && choosenSectors[i][j + 1] == 0 && bannedSectors[i][j - 1] != 6) {
             sectors[i][j + 1] = 5;
         }
-        if (!nechetAndAvaliable(i, j - 1) && avaliableMap[i][j - 1] == -5 && choosenSectors[i][j - 1] == 0) {
+        if (!nechetAndAvaliable(i, j - 1) && avaliableMap[i][j - 1] == -5 && choosenSectors[i][j - 1] == 0 && bannedSectors[i][j - 1] != 6) {
             sectors[i][j - 1] = 5;
         }
     }

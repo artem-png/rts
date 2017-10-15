@@ -57,7 +57,7 @@ public class Tex {
         backButton = generateSprite("button_1_back.png", 80 * Tex.x, 80 * Tex.y);
         cave3x5Button = generateSprite("button_1_cave_3x5.png", 80 * Tex.x, 80 * Tex.y);
         cave3x5Button_active = generateSprite("button_2_cave_3x5.png", 80 * Tex.x, 80 * Tex.y);
-        cave3x5 = generateSprite("cave_3x5_1.png", 30 * 5 * Tex.x, 30 * 3 * Tex.y);
+        cave3x5 = generateSprite("cave_3x5_1.png", 30 * 5 * Tex.x, 30 * 3 * Tex.y - 6 * Tex.y);
 
     }
 

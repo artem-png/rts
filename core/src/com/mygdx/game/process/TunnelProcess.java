@@ -32,8 +32,8 @@ public class TunnelProcess implements IProcess {
         landMap = map;
         accept = new Button(Tex.acceptButton, new Vector2(715 * Tex.x, 5 * Tex.y));
         backButton = new Button(Tex.backButton, new Vector2(5 * Tex.x, 5 * Tex.y));
-        accept.setDelay(15);
-        backButton.setDelay(15);
+        accept.setDelay(5);
+        backButton.setDelay(5);
     }
 
     @Override

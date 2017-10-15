@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Config.Tex;
 import com.mygdx.game.Layout.GameLayout;
-import com.mygdx.game.models.map.build.BgMap;
 
 /**
  * Created by User on 14.10.2017.
@@ -28,12 +27,18 @@ public class LandMap {
         float h = GameLayout.camera.viewportHeight * GameLayout.camera.zoom + 30 * Tex.y * 6f * GameLayout.camera.zoom;
         for (int i = 0; i < BlockMap.sizeX; i ++) {
             for (int j = 0; j < BlockMap.sizeY; j ++) {
-                bgMap.act(batch, i, j, x, y, w, h);
+                bgMap.act(batch, j, i, x, y, w, h);
             }
         }
         for (int i = 0; i < BlockMap.sizeX; i ++) {
             for (int j = 0; j < BlockMap.sizeY; j ++) {
                 blockMap.act(batch, i, j, x, y, w, h);
+            }
+        }
+
+        for (int i = 0; i < BlockMap.sizeX; i ++) {
+            for (int j = 0; j < BlockMap.sizeY; j ++) {
+                blockMap.actCave(batch, i, j, x, y, w, h);
             }
         }
     }

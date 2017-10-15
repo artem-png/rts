@@ -25,10 +25,10 @@ public class DigPanelGameProcess {
         closeButton = new Button(Tex.button_1_2, new Vector2(5 * Tex.x, 5 * Tex.y));
         digButton = new Button(Tex.digButton, new Vector2(110 * Tex.x, 5 * Tex.y));
         caveButton = new Button(Tex.caveButton, new Vector2(215 * Tex.x, 5 * Tex.y));
-        digButton.setDelay(15);
-        showButton.setDelay(15);
-        closeButton.setDelay(15);
-        caveButton.setDelay(15);
+        digButton.setDelay(5);
+        showButton.setDelay(5);
+        closeButton.setDelay(5);
+        caveButton.setDelay(5);
     }
 
     public void act(SpriteBatch batch) {

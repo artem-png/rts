@@ -64,7 +64,6 @@ public class TonnelEvent implements IEvent {
                 for (int i = 0; i < standCells.size(); i++) {
 
                     int distance = Distance.getDistance(player.actualPosition, standCells.get(i));
-                    System.out.println(distance);
                     if (distance < min) {
                         min = distance;
                         finalPosition = new Vector2(standCells.get(i));

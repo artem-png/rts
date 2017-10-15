@@ -36,7 +36,7 @@ public class Cave extends ABlock {
 
     @Override
     public void render(SpriteBatch batch) {
-        batch.draw(sprite, position.x * 30 * Tex.x, position.y * 30 * Tex.y, sprite.getWidth(), sprite.getHeight());
+        batch.draw(sprite, position.x * 30 * Tex.x, position.y * 30 * Tex.y + 6 * Tex.y, sprite.getWidth(), sprite.getHeight());
     }
 
     public void renderMarker(SpriteBatch batch) {

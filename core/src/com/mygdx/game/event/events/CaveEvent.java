@@ -80,17 +80,17 @@ public class CaveEvent implements IEvent {
         if (standCell.x == playerXY.x && standCell.y == playerXY.y) {
             movement.isReady = true;
             if (cave.type == 1) {
-                GameProcess.blockMap.blocks[(int)cave.position.x][(int)cave.position.y + 1] = null;
-                GameProcess.blockMap.blocks[(int)cave.position.x + 1][(int)cave.position.y + 1] = null;
-                GameProcess.blockMap.blocks[(int)cave.position.x + 2][(int)cave.position.y + 1] = null;
-                GameProcess.blockMap.blocks[(int)cave.position.x + 3][(int)cave.position.y + 1] = null;
-                GameProcess.blockMap.blocks[(int)cave.position.x + 4][(int)cave.position.y + 1] = null;
-
-                GameProcess.blockMap.blocks[(int)cave.position.x][(int)cave.position.y + 2] = null;
-                GameProcess.blockMap.blocks[(int)cave.position.x + 1][(int)cave.position.y + 2] = null;
-                GameProcess.blockMap.blocks[(int)cave.position.x + 2][(int)cave.position.y + 2] = null;
-                GameProcess.blockMap.blocks[(int)cave.position.x + 3][(int)cave.position.y + 2] = null;
-                GameProcess.blockMap.blocks[(int)cave.position.x + 4][(int)cave.position.y + 2] = null;
+//                GameProcess.blockMap.blocks[(int)cave.position.x][(int)cave.position.y + 1] = null;
+//                GameProcess.blockMap.blocks[(int)cave.position.x + 1][(int)cave.position.y + 1] = null;
+//                GameProcess.blockMap.blocks[(int)cave.position.x + 2][(int)cave.position.y + 1] = null;
+//                GameProcess.blockMap.blocks[(int)cave.position.x + 3][(int)cave.position.y + 1] = null;
+//                GameProcess.blockMap.blocks[(int)cave.position.x + 4][(int)cave.position.y + 1] = null;
+//
+//                GameProcess.blockMap.blocks[(int)cave.position.x][(int)cave.position.y + 2] = null;
+//                GameProcess.blockMap.blocks[(int)cave.position.x + 1][(int)cave.position.y + 2] = null;
+//                GameProcess.blockMap.blocks[(int)cave.position.x + 2][(int)cave.position.y + 2] = null;
+//                GameProcess.blockMap.blocks[(int)cave.position.x + 3][(int)cave.position.y + 2] = null;
+//                GameProcess.blockMap.blocks[(int)cave.position.x + 4][(int)cave.position.y + 2] = null;
             }
             GameProcess.blockMap.blocks[(int)cave.position.x][(int)cave.position.y] = cave;
             isDigged = true;
