@@ -27,7 +27,7 @@ public class GameLayout implements ILayout {
         cameraDynamic.position.set(1100/2,  1100 * (h / w)/2 + 50, 0);
         cameraDynamic.update();
 
-        level = new Level2();
+        level = new Level1();
     }
 
     @Override
