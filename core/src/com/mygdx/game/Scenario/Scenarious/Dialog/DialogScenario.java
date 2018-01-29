@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Config.Tex;
 import com.mygdx.game.Layout.GameLayout;
 import com.mygdx.game.Scenario.Scenarious.Scenario;
@@ -19,7 +20,9 @@ import java.util.Vector;
 public abstract class DialogScenario extends Scenario {
     Sprite panel = new Sprite(new Texture("ui/dialog/panel.png"));
     Sprite black = new Sprite(new Texture("level/l1/black.png"));
-    ;
+    Sprite circle = new Sprite(new Texture("ui/dialog/buttonRound_beige.png"));
+    Sprite ok = new Sprite(new Texture("ui/dialog/iconCross_brown.png"));
+
     public BitmapFont font = Tex.generateFont("ui/fonts/font1.ttf", 32, Color.BLACK);
     public Vector<DialogSpeech> dialogSpeeches = new Vector<DialogSpeech>();
     public int timerSetting = 5;
@@ -41,6 +44,8 @@ public abstract class DialogScenario extends Scenario {
         batch.draw(black, 0 - dieDelta * (timeToDieSetting - timeToDie), 0, GameLayout.cameraDynamic.viewportWidth, 2000);
         batch.setColor(color.r, color.g, color.b, 1);
         batch.draw(panel, 25 - dieDelta * (timeToDieSetting - timeToDie), 75, 1050, 240 - yOffset);
+        batch.draw(circle, 1052 - dieDelta * (timeToDieSetting - timeToDie), 304 - yOffset, 40, 40);
+        batch.draw(ok, 1065 - dieDelta * (timeToDieSetting - timeToDie), 317 - yOffset, 15, 15);
         if (dialogSpeeches.get(0).revert) {
             dialogSpeeches.get(0).hero.setFlip(true, false);
             batch.draw(dialogSpeeches.get(0).hero, 800 - dieDelta * (timeToDieSetting - timeToDie), 300 - yOffset);
@@ -73,12 +78,15 @@ public abstract class DialogScenario extends Scenario {
 
     public void input() {
         if ((Gdx.input.justTouched() && timer <= 0) || this.isHide) {
-            timer = timerSetting;
-            if (getSpeechCount() == 1 && this.timeToDie > 0) {
-                GameLayout.level.setStatus(1);
-                isHide = true;
-            } else {
-                dialogSpeeches.remove(0);
+            Vector3 position = GameLayout.cameraDynamic.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+            if (position.x > 1040 && position.x < 1052 + 50 && position.y > 300 - yOffset && position.y < 304 - yOffset + 45) {
+                timer = timerSetting;
+                if (getSpeechCount() == 1 && this.timeToDie > 0) {
+                    GameLayout.level.setStatus(1);
+                    isHide = true;
+                } else {
+                    dialogSpeeches.remove(0);
+                }
             }
         }
     }
@@ -90,5 +98,7 @@ public abstract class DialogScenario extends Scenario {
         this.panel.getTexture().dispose();
         this.font.dispose();
         black.getTexture().dispose();
+        circle.getTexture().dispose();
+        ok.getTexture().dispose();
     }
 }

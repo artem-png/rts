@@ -25,8 +25,8 @@ public class Level2 extends ALevel {
         initBackground();
         Texture text = new Texture("maps/map2/map.png");
         map = new Sprite(text, text.getWidth(), text.getHeight());
-        scenarioHandler.addScenario(new SetPlayerScenario(50, 51, 10, 300));
         scenarioHandler.addScenario(new UnBlackScenario(50));
+        scenarioHandler.addScenario(new SetPlayerScenario(50, 51, 10, 300));
         scenarioHandler.addScenario(new SetOrcScenario());
         scenarioHandler.addScenario(new WaitForScenario());
         scenarioHandler.addScenario(new PauseScenario(80));

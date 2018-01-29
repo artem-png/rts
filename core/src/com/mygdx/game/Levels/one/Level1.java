@@ -32,8 +32,8 @@ public class Level1 extends ALevel {
         Texture text = new Texture("maps/map1/untitled.png");
         map = new Sprite(text, text.getWidth(), text.getHeight());
         scenarioHandler.addScenario(new UnBlackScenario(100));
-        scenarioHandler.addScenario(new SleepScenario());
-        scenarioHandler.addScenario(new EarthShakeScenario());
+       // scenarioHandler.addScenario(new SleepScenario());
+       // scenarioHandler.addScenario(new EarthShakeScenario());
         scenarioHandler.addScenario(new WakeUpDialog());
         scenarioHandler.addScenario(new SetPlayerScenario(200, 50, 50, 150));
         scenarioHandler.addScenario(new SetOrcScenario());
