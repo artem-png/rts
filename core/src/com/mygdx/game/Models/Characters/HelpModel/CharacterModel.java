@@ -1,6 +1,7 @@
 package com.mygdx.game.Models.Characters.HelpModel;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.Config.Configuration;
 import com.mygdx.game.Config.Params;
 import com.mygdx.game.Config.Tex;
 import com.mygdx.game.Models.Characters.CharacterAnimation.Animation;
@@ -58,7 +59,7 @@ public class CharacterModel {
             spritesAtack.add(Tex.Samurai_light_atack_8);
             spritesAtack.add(Tex.Samurai_light_atack_9);
             spritesAtack.add(Tex.Samurai_light_atack_10);
-            Animation animationAtack = new Animation(spritesAtack, Params.playerAtackAnimationSpeed);
+            Animation animationAtack = new Animation(spritesAtack, Configuration.playerAtackAnimationSpeed);
             animationManager.atack = animationAtack;
 
             Vector<Sprite>  spritesDie = new Vector<Sprite>();
@@ -82,7 +83,7 @@ public class CharacterModel {
             spritesDef.add(Tex.Samurai_light_def_3);
             spritesDef.add(Tex.Samurai_light_def_4);
             spritesDef.add(Tex.Samurai_light_def_5);
-            Animation animationDef = new Animation(spritesDef, Params.playerDefAnimationSpeed);
+            Animation animationDef = new Animation(spritesDef, Configuration.playerDefAnimationSpeed);
             animationDef.isLimit = true;
             animationManager.defend = animationDef;
 
@@ -92,7 +93,7 @@ public class CharacterModel {
             spritesUnDef.add(Tex.Samurai_light_def_8);
             spritesUnDef.add(Tex.Samurai_light_def_9);
             spritesUnDef.add(Tex.Samurai_light_def_10);
-            Animation animationUnDef = new Animation(spritesUnDef, Params.playerDefAnimationSpeed);
+            Animation animationUnDef = new Animation(spritesUnDef, Configuration.playerDefAnimationSpeed);
             animationUnDef.isLimit = true;
             animationManager.unDefend = animationUnDef;
         } else if (heroId == CharacterModel.ORC_HUMMER) {

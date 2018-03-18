@@ -13,6 +13,6 @@ import com.mygdx.game.Scenario.Scenarious.Scenario;
 public class SetOrcScenario extends Scenario {
     public void act() {
         isActive = false;
-        GameLayout.level.addEnemy(new Orc(CharacterModel.ORC_HUMMER, 1200, 187, Params.hp5, Params.atackDelay120, Params.damage2, Params.speed2));
+        GameLayout.level.addEnemy(new Orc(CharacterModel.ORC_HUMMER, 1200, 187, Params.hp5, Params.atackDelay140, Params.damage3, Params.speed2));
     }
 }

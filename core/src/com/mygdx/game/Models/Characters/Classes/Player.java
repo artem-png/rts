@@ -3,6 +3,7 @@ package com.mygdx.game.Models.Characters.Classes;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Config.Configuration;
 import com.mygdx.game.Config.Params;
 import com.mygdx.game.Models.Characters.HelpModel.CharacterModel;
 
@@ -11,13 +12,14 @@ import com.mygdx.game.Models.Characters.HelpModel.CharacterModel;
  */
 
 public class Player extends AModel {
+    public int level = 1;
 
     public Player(int x) {
-        this.maxHp = Params.playerMaxHp;
+        this.maxHp = Configuration.playerMaxHp;
         this.hp = this.maxHp;
-        this.damage = Params.playerDamage;
+        this.damage = Configuration.playerDamage;
         initAnimationManager(CharacterModel.SAMURAI_LIGHT_HERO);
-        initAtackComponent(Params.playerAtackDelay);
+        initAtackComponent(Configuration.playerAtackDelay);
         initDefComponent();
         speed = new Vector2(0, 0);
         position = new Vector2(x, 187);
@@ -32,7 +34,7 @@ public class Player extends AModel {
             if ((this.opponent != null && this.opponent.side == 2) || atackModel.isWorking || defModel.isWorking) {
                 stopMoving();
             } else {
-                speed.set(Params.playerSpeed, 0);
+                speed.set(Configuration.playerSpeed, 0);
             }
         }
     }
@@ -44,7 +46,7 @@ public class Player extends AModel {
             if ((this.opponent != null && this.opponent.side == 1) || atackModel.isWorking || defModel.isWorking) {
                 stopMoving();
             } else {
-                speed.set(-Params.playerSpeed, 0);
+                speed.set(-Configuration.playerSpeed, 0);
             }
         }
     }

@@ -6,6 +6,7 @@ import com.mygdx.game.Background.Background;
 import com.mygdx.game.Component.AtackComponent;
 import com.mygdx.game.Component.HpComponent;
 import com.mygdx.game.Component.IComponent;
+import com.mygdx.game.Component.LevelComponent;
 import com.mygdx.game.Component.MoveComponent;
 import com.mygdx.game.Models.Characters.Classes.AEnemy;
 import com.mygdx.game.Models.Characters.Classes.AModel;
@@ -30,7 +31,7 @@ public abstract class ALevel implements ILevel {
     public ScenarioHandler scenarioHandler = new ScenarioHandler();
     public final int STATUS_ACTIVE = 1;
     public final int STATUS_HOLD = 2;
-    int status = STATUS_ACTIVE;
+    public int status = STATUS_ACTIVE;
 
     public void render(SpriteBatch batch) {
         background.render(batch);
@@ -71,6 +72,10 @@ public abstract class ALevel implements ILevel {
     public void initVisualComponents(Player player) {
         HpComponent hpComponent = new HpComponent(this, player);
         visualComponents.add(hpComponent);
+    }
+
+    public void initLevelMenu() {
+        visualComponents.add(new LevelComponent(false));
     }
 
     public void actControlComponents() {

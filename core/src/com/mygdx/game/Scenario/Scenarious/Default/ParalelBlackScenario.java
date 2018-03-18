@@ -1,30 +1,27 @@
 package com.mygdx.game.Scenario.Scenarious.Default;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Layout.GameLayout;
-import com.mygdx.game.Levels.two.Level2;
 import com.mygdx.game.Scenario.Scenarious.Scenario;
 
 /**
  * Created by User on 27.01.2018.
  */
 
-public class BlackScenario extends Scenario {
+public class ParalelBlackScenario extends Scenario {
     private Sprite texture;
     float alpha = 0;
-    int timeSetting;
 
-    public BlackScenario(int time) {
+    public ParalelBlackScenario(float alpha, String disposeOn) {
         level = GameLayout.level;
-        name = "1_black";
-        isParalel = false;
-        isTimeLimit = true;
-        timeSetting = time;
-        this.time = time;
+        name = "2_black";
+        isParalel = true;
+        isTimeLimit = false;
+        this.alpha = alpha;
+        this.disposeOnName = disposeOn;
         texture = new Sprite(new Texture("level/l1/black.png"));
     }
 
@@ -39,7 +36,6 @@ public class BlackScenario extends Scenario {
 
     public void act() {
         super.act();
-        alpha += (float) 1 / timeSetting;
     }
 
     public void dispose() {

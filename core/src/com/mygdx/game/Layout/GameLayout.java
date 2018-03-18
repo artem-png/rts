@@ -30,6 +30,11 @@ public class GameLayout implements ILayout {
         level = new Level1();
     }
 
+    public static void setLevel(ILevel newLevel) {
+        level.dispose();
+        level = newLevel;
+    }
+
     @Override
     public void render(SpriteBatch batch) {
         batch.setProjectionMatrix(camera.combined);

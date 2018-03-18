@@ -47,9 +47,21 @@ public class ScenarioHandler {
 
     public void render(SpriteBatch batch) {
         for (int i = 0; i < scenarios.size(); i++) {
-            scenarios.get(i).render(batch);
-            if (!scenarios.get(i).isParalel) {
-                break;
+            if (!scenarios.get(i).isBeforeRenderPlayer) {
+                scenarios.get(i).render(batch);
+                if (!scenarios.get(i).isParalel) {
+                    break;
+                }
+            }
+        }
+    }
+    public void renderBefore(SpriteBatch batch) {
+        for (int i = 0; i < scenarios.size(); i++) {
+            if (scenarios.get(i).isBeforeRenderPlayer) {
+                scenarios.get(i).render(batch);
+                if (!scenarios.get(i).isParalel) {
+                    break;
+                }
             }
         }
     }

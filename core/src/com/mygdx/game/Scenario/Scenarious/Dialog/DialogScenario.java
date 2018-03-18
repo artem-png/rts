@@ -50,6 +50,7 @@ public abstract class DialogScenario extends Scenario {
             dialogSpeeches.get(0).hero.setFlip(true, false);
             batch.draw(dialogSpeeches.get(0).hero, 800 - dieDelta * (timeToDieSetting - timeToDie), 300 - yOffset);
         } else {
+            dialogSpeeches.get(0).hero.setFlip(false, false);
             batch.draw(dialogSpeeches.get(0).hero, 50 - dieDelta * (timeToDieSetting - timeToDie), 300 - yOffset);
         }
         font.draw(batch, dialogSpeeches.get(0).text, 50 - dieDelta * (timeToDieSetting - timeToDie), 285 - yOffset, 1000, 270 - yOffset, true);

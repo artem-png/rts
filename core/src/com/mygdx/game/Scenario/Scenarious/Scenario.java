@@ -15,6 +15,7 @@ public abstract class Scenario {
     public int time = 0;
     public String name = "default";
     public String disposeOnName = "";
+    public boolean isBeforeRenderPlayer = false;
 
     public void render(SpriteBatch batch) {
 

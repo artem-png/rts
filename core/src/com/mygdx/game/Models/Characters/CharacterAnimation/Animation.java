@@ -10,7 +10,7 @@ import java.util.Vector;
 
 public class Animation {
     Vector<Sprite> sprites;
-    int settingDelay;
+    public int settingDelay;
     int currentDelay;
     public int currentFrame = 0;
     public int maxFrame;

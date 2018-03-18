@@ -13,6 +13,7 @@ import com.mygdx.game.Scenario.Scenarious.Level1.EarthShakeScenario;
 import com.mygdx.game.Scenario.Scenarious.Level1.KillDialog;
 import com.mygdx.game.Scenario.Scenarious.Level1.OrcDialog;
 import com.mygdx.game.Scenario.Scenarious.Level1.PauseScenario;
+import com.mygdx.game.Scenario.Scenarious.Level1.SetLevel;
 import com.mygdx.game.Scenario.Scenarious.Level1.SetOrcScenario;
 import com.mygdx.game.Scenario.Scenarious.Level1.SleepScenario;
 import com.mygdx.game.Scenario.Scenarious.Level1.TutorialAtackScenario;
@@ -32,8 +33,8 @@ public class Level1 extends ALevel {
         Texture text = new Texture("maps/map1/untitled.png");
         map = new Sprite(text, text.getWidth(), text.getHeight());
         scenarioHandler.addScenario(new UnBlackScenario(100));
-       // scenarioHandler.addScenario(new SleepScenario());
-       // scenarioHandler.addScenario(new EarthShakeScenario());
+        scenarioHandler.addScenario(new SleepScenario());
+        scenarioHandler.addScenario(new EarthShakeScenario());
         scenarioHandler.addScenario(new WakeUpDialog());
         scenarioHandler.addScenario(new SetPlayerScenario(200, 50, 50, 150));
         scenarioHandler.addScenario(new SetOrcScenario());
@@ -48,6 +49,7 @@ public class Level1 extends ALevel {
         scenarioHandler.addScenario(new KillDialog());
         scenarioHandler.addScenario(new WaitForPositionScenario(1350));
         scenarioHandler.addScenario(new BlackScenario(50));
+        scenarioHandler.addScenario(new SetLevel());
     }
 
     private void initBackground() {

@@ -5,13 +5,6 @@ package com.mygdx.game.Config;
  */
 
 public class Params {
-    public static int playerMaxHp = 20;
-    public static int playerAtackDelay = 30;
-    public static int playerSpeed = 3;
-    public static int playerDamage = 1;
-    public static int playerDefAnimationSpeed = 3;
-    public static int playerAtackAnimationSpeed = 3;
-
     public static int animationAtackSpeed6 = 6;
     public static int animationAtackSpeed5 = 5;
     public static int animationAtackSpeed4 = 4;
@@ -32,6 +25,7 @@ public class Params {
     public static int atackDelay60 = 60;
     public static int atackDelay90 = 90;
     public static int atackDelay120 = 120;
+    public static int atackDelay140 = 140;
     public static int atackDelay150 = 150;
 
     public static int speed2 = 2;
